@@ -8,9 +8,7 @@ slug: /6f71a044-b7ee-4e9f-b762-2d7667ff2637
 
 ## Architecture {#7e03927da8fc45818ec435f2b3b69272}
 
-
-![](/notion_imgs/1044571662.png)
-
+![](/img/1044571662.png)
 
 ## Interface {#cf465c6ecfe1442ca910367aada66ae0}
 
@@ -25,14 +23,12 @@ flowchart LR
   µROS_agent
   end
   µROS_agent --UART µROS--> app_µROS
-	app_µROS --UART Protobuf--> RBDC
+ app_µROS --UART Protobuf--> RBDC
   end
   
 ```
 
-
 ## Communication µROS - ROS2 {#3a7cbeeb6d0d4894808da1fd514ed1cb}
-
 
 ```mermaid
 flowchart LR
@@ -51,18 +47,14 @@ RPi --/scan LaserScan--> PlannerServer
 RPi --/tf TfMsg-->PlannerServer
 ```
 
-
 ### Liste des topics {#4ccd31d432fc4e44a7702ece040880b1}
-
 
 | Topic    | Type     |
 | -------- | -------- |
 | /cmd_vel | Twist    |
 | /odom    | odometry |
 
-
 ### Communication micro-ROS ↔RBDC | Protocol Buffer {#fb6e5ec426084f5bae3dbbebe04b5d5c}
-
 
 ```protobuf
 syntax = "proto3";
@@ -82,4 +74,3 @@ message odom {
   float theta = 3;
 }
 ```
-

@@ -8,7 +8,6 @@ slug: /1667506a-36f9-480d-9c69-66d7eebda30b
 
 ## Spécifications {#dceb34a03e284d229a2f8dd7a52daf93}
 
-
 |                                 | Différentiel         |
 | ------------------------------- | -------------------- |
 | Vitesse de translation maximale | 2 m/s (15V)          |
@@ -18,12 +17,8 @@ slug: /1667506a-36f9-480d-9c69-66d7eebda30b
 | Batterie                        | 4S                   |
 | Connecteur extension            | Connecteur 6TRON x 2 |
 
-
 La base différentiel prévoit l’emplacement pour 2 stack 6TRON (full size) dont l’une est réservée au contrôle moteur.
-
 
 ## Composants {#9daab117dfa44f2f95c07d41f00ef79e}
 
-
-![](/notion_imgs/775031292.png)
-
+![](/img/775031292.png)
