@@ -24,6 +24,6 @@ Lancez ensuite la simulation
 ros2 launch minipock_gz spawn.launch.py 
 ```
 
-![](/img/161003219.png)
+![](../img/161003219.png)
 
 Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation) pour utiliser le MiniPock.

@@ -21,4 +21,4 @@ La base différentiel prévoit l’emplacement pour 2 stack 6TRON (full size) do
 
 ## Composants {#9daab117dfa44f2f95c07d41f00ef79e}
 
-![](/img/775031292.png)
+![](../img/775031292.png)
