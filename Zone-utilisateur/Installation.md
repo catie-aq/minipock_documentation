@@ -29,8 +29,8 @@ Documentation officiel : [https://micro.ros.org/docs/tutorials/core/first_applic
 :::
 
 - Dépendances Python :
- 	- python3-rosdep2
- 	- python3-vcstool
+  - python3-rosdep2
+  - python3-vcstool
 - Créer le workspace et télecharger Micro-ROS
 
 ```bash
@@ -152,6 +152,11 @@ MINIPOCK_MAX_ANG_VEL = 12.0
 Configuration par défaut :
 
 - ROS domain ID : 10
+
+### MiniPock v1
+
+Utilisable uniquement avec un MiniPock équipé d'une raspberry et avec un lien série µROS.
+
 - Baudrate : 460800
 
 Lancer le `micro-ROS` agent afin d’établir le lien avec l’environnement ROS2.
@@ -167,6 +172,24 @@ ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py port:=[/dev/ttyUSBx] frame_
 
 ```bash
 docker run -it --rm --env ROS_DOMAIN_ID=10 -v /dev:/dev --privileged --net=host microros/micro-ros-agent:humble serial --dev /dev/ttyUSB0 --baudrate 460800 -v6
+```
+
+### MiniPock v2
+
+Utilisable uniquement avec un MiniPock équipé d'une Zest Wifi / ESP32 permettant un lien UDP avec µROS.
+
+Lancer le `micro-ROS` agent afin d’établir le lien avec l’environnement ROS2.
+
+- Système
+
+```bash
+ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888 -v6
+```
+
+- Docker
+
+```bash
+docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 --port 8888 -v6 
 ```
 
 ## Configuration du PC {#4f4fbcdfd052475497982b3ff0ae45cb}
