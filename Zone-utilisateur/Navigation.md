@@ -1,7 +1,6 @@
 ---
 title: Navigation
 sidebar_position: 5
-slug: /003de3fc-402f-4a52-af9c-9bce81b21276
 ---
 
 

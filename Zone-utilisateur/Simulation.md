@@ -1,7 +1,6 @@
 ---
 title: Simulation
 sidebar_position: 6
-slug: /35f5b2b3-e0f5-4bd6-964e-b659f69d1075
 ---
 
 

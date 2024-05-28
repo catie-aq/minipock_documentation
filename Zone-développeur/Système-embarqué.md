@@ -1,7 +1,6 @@
 ---
 title: Système embarqué
 sidebar_position: 6
-slug: /6f71a044-b7ee-4e9f-b762-2d7667ff2637
 ---
 
 

@@ -1,7 +1,6 @@
 ---
 title: Cartographer
 sidebar_position: 3
-slug: /bb39e4b8-1528-4a54-a217-900b7f7c1721
 ---
 
 

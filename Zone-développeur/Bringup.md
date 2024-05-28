@@ -1,7 +1,6 @@
 ---
 title: Bringup
 sidebar_position: 5
-slug: /7750e0e4-54d5-4bc7-9d9f-4c220183cc15
 ---
 
 

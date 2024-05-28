@@ -1,7 +1,6 @@
 ---
 title: Électronique
 sidebar_position: 7
-slug: /5ce807bd-efb9-4622-a0e6-1bda2903bd54
 ---
 
 

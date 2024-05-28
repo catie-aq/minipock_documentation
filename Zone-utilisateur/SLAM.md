@@ -1,7 +1,6 @@
 ---
 title: SLAM
 sidebar_position: 4
-slug: /a8ce09ac-895d-4535-aa20-39d7627a7e23
 ---
 
 Le SLAM (Simultaneous Localization and Mapping) est une technique permettant de dessiner une carte en estimant la position actuelle dans un espace arbitraire.
@@ -45,4 +44,7 @@ ros2 run nav2_map_server map_saver_cli -f ~/map
 ```
 
 L'option -f spécifie l'emplacement du dossier et le nom du fichier dans lequel les fichiers doivent être enregistrés.
-Avec la commande ci-dessus, map.pgm et map.yaml seront enregistrés dans le dossier personnel.
+Avec la commande ci-dessus, map.pgm et map.yaml seront enregistrés dans le dossier personnel.        type: string
+        description: "Fetch submodules in checkout ? (true/recursive/false)"
+        required: false
+        default: "false"

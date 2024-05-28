@@ -1,7 +1,6 @@
 ---
 title: Vue d’ensemble
 sidebar_position: 0
-slug: /723920fd-0aae-4461-adad-324c66e8d707
 ---
 
 

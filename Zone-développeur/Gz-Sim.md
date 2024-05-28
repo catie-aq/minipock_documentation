@@ -1,7 +1,6 @@
 ---
 title: Gz Sim
 sidebar_position: 1
-slug: /3d2ee4af-cd3b-4ad9-81c4-0a10133c90d1
 ---
 
 

@@ -1,7 +1,6 @@
 ---
 title: Description
 sidebar_position: 0
-slug: /bdb6e39b-f56f-4164-8cb7-44ef09744e01
 ---
 
 

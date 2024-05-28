@@ -1,7 +1,6 @@
 ---
 title: Installation
 sidebar_position: 2
-slug: /cc2c36ac-dc0a-4353-9ae7-c1ba6db37cba
 ---
 
 

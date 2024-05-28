@@ -1,7 +1,6 @@
 ---
 title: Démarrage rapide
 sidebar_position: 3
-slug: /c8ac4ccf-307c-4c83-a890-3547d6ba9aee
 ---
 
 

@@ -1,7 +1,6 @@
 ---
 title: Téléopération
 sidebar_position: 2
-slug: /239ab349-ad18-4af6-88e7-d016bcb4564c
 ---
 
 

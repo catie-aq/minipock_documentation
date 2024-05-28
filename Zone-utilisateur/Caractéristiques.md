@@ -1,7 +1,6 @@
 ---
 title: Caractéristiques
 sidebar_position: 1
-slug: /1667506a-36f9-480d-9c69-66d7eebda30b
 ---
 
 
