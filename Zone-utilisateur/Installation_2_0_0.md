@@ -45,7 +45,7 @@ Une image docker peut être utilisée pour lancer l’agent Micro-ROS (debug et 
 Documentation officielle : [https://micro.ros.org/docs/tutorials/core/first_application_rtos/zephyr/](https://micro.ros.org/docs/tutorials/core/first_application_rtos/zephyr/)
 
 ```bash
-docker run -it --rm --env ROS_DOMAIN_ID=10 -v /dev:/dev --privileged --net=host microros/micro-ros-agent:humble serial --dev /dev/ttyUSB0 --baudrate 460800 -v6
+docker run -it --rm --env ROS_DOMAIN_ID=10 -v /dev:/dev --privileged --net=host microros/micro-ros-agent:humble udp4 --port 8888
 ```
 
 :::
