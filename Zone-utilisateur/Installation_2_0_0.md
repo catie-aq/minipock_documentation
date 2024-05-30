@@ -31,6 +31,8 @@ Compiler le workspace
 
 ```shell
 cd ~/colcon_ws
+colcon build --merge-install
+source install/setup.bash
 ros2 run micro_ros_setup create_agent_ws.sh
 colcon build --merge-install
 source install/setup.bash
