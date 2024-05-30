@@ -13,16 +13,16 @@ La navigation permet à un robot de se déplacer de la position actuelle à la p
 
 Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
 
-Lancez le bringup du MiniPock
-
-```shell
-ros2 launch minipock_bringup bringup.launch.py
-```
-
-Lancez ensuite la navigation
+Lancez la navigation
 
 ```shell
 ros2 launch minipock_navigation2 navigation2.launch.py 
+```
+
+Si l'environnement est simulé il faut lancer
+
+```shell
+ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_time:=true
 ```
 
 La `map` utilisée est le fichier `map.yaml` dans `minipock_navigation2/map/map.yaml`
@@ -40,9 +40,9 @@ L'estimation initiale de la pose doit être effectuée avant de lancer la naviga
 
 - Cliquez sur le bouton Navigation2 Goal dans le menu RViz2.
 - Cliquez sur la carte pour définir la destination du robot et faites glisser la flèche verte vers la direction vers laquelle le robot sera orienté.
- 	- Cette flèche verte est un marqueur qui permet de spécifier la destination du robot.
- 	- La racine de la flèche correspond aux coordonnées x, y de la destination, et l'angle θ est déterminé par l'orientation de la flèche.
- 	- Dès que x, y, θ sont définis, TurtleBot3 commence immédiatement à se déplacer vers la destination.
+  - Cette flèche verte est un marqueur qui permet de spécifier la destination du robot.
+  - La racine de la flèche correspond aux coordonnées x, y de la destination, et l'angle θ est déterminé par l'orientation de la flèche.
+  - Dès que x, y, θ sont définis, TurtleBot3 commence immédiatement à se déplacer vers la destination.
 
 ![](../img/1887772889.png)
 

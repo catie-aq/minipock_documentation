@@ -11,12 +11,6 @@ Pour utiliser MiniPock dans un environnement simulé il est nécessaire d’avoi
 
 Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
 
-Lancez le bringup du MiniPock
-
-```shell
-ros2 launch minipock_bringup bringup.launch.py
-```
-
 Lancez ensuite la simulation
 
 ```shell
