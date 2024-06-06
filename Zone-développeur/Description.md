@@ -5,8 +5,6 @@ sidebar_position: 0
 
 
 
-_This documentation is auto-generated from_ [_catie-aq/minipock/README.md_](https://github.com/catie-aq/minipock)
-
 - Maintainer status: developed
 - Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
 - License: Apache 2.0
@@ -33,7 +31,7 @@ export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH~/[your colcon workspace]/insta
 ## Utilisation {#9c978cc4001649c78868b66d980843ce}
 
 ```bash
-ros2 launch minipock_gz minipock.launch.py
+ros2 launch minipock_gz spawn.launch.py
 ```
 
 ## Fichier URDF {#925a772d7e234692b16fb9b85613fa99}
