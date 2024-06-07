@@ -1,0 +1,290 @@
+---
+title: Multiple Robots
+sidebar_position: 8
+---
+
+# Turtlebot3
+## Simulation de Navigation Multi-robot dans ROS2
+### Avec 2 robots
+#### 2 turtlebots burger
+
+- Sources : 
+  - [Online Course from The Construct](https://app.theconstruct.ai/open-classes/ca4e2636-c3e1-4b14-8149-da1a193fcb0e/)
+  - [Vidéo liée au Cours](https://www.youtube.com/watch?v=cGUueuIAFgw&t=1703s)
+
+Le Rosject est disponible au téléchargement à la création d'un compte sur le site [The Construct](https://app.theconstruct.ai/).
+
+Ce cours ne détaille que les changements inhérents à la localisation des turtlebots. Le reste ayant été fait en amont pour simplifier le tuto.
+
+Pour plus de clareté, lire le document de cours.
+Précision du début du tuto:
+> In this unit, the simulation is properly set up with two TurtleBot3 robots, one named tb3_0 and the other tb3_1
+
+##### Configurations globales
+
+Un conteneur Docker a été utilisé avec les configurations suivantes (basé sur celui du Minipock):
+
+- devcontainer.json :
+    ```json
+    {
+    "dockerFile": "Dockerfile",
+    "build": {
+    "target": "base"
+    },
+    "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}"
+    },
+    "runArgs": [
+    "--network=host",
+    "--privileged"
+    ],
+    "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+    "source=/dev/dri,target=/dev/dri,type=bind",
+    "source=/dev/shm,target=/dev/shm,type=bind"
+    ],
+    "features": {
+    "ghcr.io/devcontainers-contrib/features/pipx-package:1": {},
+    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
+    },
+    "customizations": {
+    "bash": "source /opt/ros/humble/setup.bash && source install/setup.bash",
+    "zsh": "source /opt/ros/humble/setup.zsh && source install/setup.zsh"
+    },
+    "postStartCommand": "/bin/bash -c 'source /opt/ros/humble/setup.bash && colcon build'",
+    "postCreateCommand": "echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc && echo 'source install/setup.bash' >> ~/.bashrc && echo 'source /usr/share/gazebo/setup.bash' >> ~/.bashrc && echo 'source ~/.bashrc' && echo 'export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/workspaces/ros-developers-open-class/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models' >> ~/.bashrc"
+    }
+    ```
+
+- Dockerfile :
+    ```Dockerfile
+    FROM osrf/ros:humble-desktop-jammy as base
+
+    RUN apt-get update && apt-get install -y \
+        python3-pip \
+        python3-colcon-common-extensions 
+
+    RUN sudo apt-get -y install ros-humble-xacro
+    RUN sudo apt-get -y install ros-humble-navigation2
+    RUN sudo apt-get -y install ros-humble-rqt-tf-tree
+
+    RUN sudo apt-get -y install ros-humble-gazebo-ros-pkgs
+
+    RUN rm -rf /var/lib/apt/lists/* 
+    ```
+
+**Ne pas oublier de sourcer si cel ne marche pas correctement.**
+##### Lancement de la siùulation
+Afin de lancer la simulation :
+```bash
+ros2 launch turtlebot3_gazebo turtlebot3_tc_world_two_robots.launch.py
+```
+
+Les commandes pour déplacer les robots par clavier sont:
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/tb3_0/cmd_vel
+```
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/tb3_1/cmd_vel
+```
+##### Configuration de la localisation multi-robot
+
+Les étapes décrites par le cours ont été suivies mais certaines modifications ont dues être apportées.
+
+Sous **ros2_ws > src > localization_server > launch** :
+
+- multi_localization.launch.py :
+  ```python
+    import os
+
+    from ament_index_python.packages import get_package_share_directory
+    from launch import LaunchDescription
+    from launch_ros.actions import Node
+
+    def generate_launch_description():
+
+        tb3_0_config = os.path.join(get_package_share_directory(
+            'localization_server'), 'config', 'tb3_0_amcl_config.yaml')
+        tb3_1_config = os.path.join(get_package_share_directory(
+            'localization_server'), 'config', 'tb3_1_amcl_config.yaml')
+        map_file = os.path.join(get_package_share_directory(
+            'map_server'), 'config', 'turtlebot_area.yaml')
+
+        return LaunchDescription([
+            Node(
+                package='nav2_map_server',
+                executable='map_server',
+                name='map_server',
+                output='screen',
+                parameters=[{'use_sim_time': True},
+                            {'topic_name': 'map'},
+                            {'frame_id': 'map'},
+                            {'yaml_filename': map_file}]
+            ),
+
+            Node(
+                namespace='tb3_0',
+                package='nav2_amcl',
+                executable='amcl',
+                name='amcl',
+                output='screen',
+                parameters=[tb3_0_config]
+            ),
+
+            Node(
+                namespace='tb3_1',
+                package='nav2_amcl',
+                executable='amcl',
+                name='amcl',
+                output='screen',
+                parameters=[tb3_1_config]
+            ),
+
+            Node(
+                package='nav2_lifecycle_manager',
+                executable='lifecycle_manager',
+                name='lifecycle_manager_localization',
+                output='screen',
+                parameters=[{'use_sim_time': True},
+                            {'autostart': True},
+                            {'bond_timeout':0.0}, # This is to make sure that the nodes are not waiting for the bond to be formed, prevent errors
+                            {'node_names': ['map_server', 'tb3_0/amcl', 'tb3_1/amcl']}]
+            )
+        ])
+  ```
+
+Sous **ros2_ws > src > localization_server > config** :
+- tb3_0_amcl_config.yaml :
+```python
+tb3_0/amcl:
+  ros__parameters:
+    use_sim_time: True
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: "tb3_0/base_footprint" # added namespace
+    beam_skip_distance: 0.5
+    beam_skip_error_threshold: 0.9
+    beam_skip_threshold: 0.3
+    do_beamskip: false
+    global_frame_id: "map"
+    lambda_short: 0.1
+    laser_likelihood_max_dist: 2.0
+    laser_max_range: 100.0
+    laser_min_range: -1.0
+    laser_model_type: "likelihood_field"
+    max_beams: 60
+    max_particles: 8000
+    min_particles: 200
+    odom_frame_id: "tb3_0/odom" # added namespace
+    pf_err: 0.05
+    pf_z: 0.99
+    recovery_alpha_fast: 0.0
+    recovery_alpha_slow: 0.0
+    resample_interval: 1
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"
+    save_pose_rate: 0.5
+    sigma_hit: 0.2
+    tf_broadcast: true
+    transform_tolerance: 1.0
+    update_min_a: 0.2
+    update_min_d: 0.25
+    z_hit: 0.5
+    z_max: 0.05
+    z_rand: 0.5
+    z_short: 0.05
+    scan_topic: "scan" # no namespace because it is automatically added --> scan_topic: "tb3_0/scan"
+    map_topic: "/map" # topic is global, "/" is added to not append namespace automatically --> map_topic: "/map"
+
+    # ACTIVATE THE set_initial_pose WHEN YOU HAVE A PROPER initial_pose, by uncommenting the code below
+    #set_initial_pose: true
+    #initial_pose:
+    # x: 7.778
+    # y: -9.589
+    # z: 0.0
+    # a: -0.211
+
+tb3_0/amcl_map_client:
+  ros__parameters:
+    use_sim_time: True
+
+tb3_0/amcl_rclcpp_node:
+  ros__parameters:
+    use_sim_time: True
+```
+> **Éditer le code précédent pour adapter à *tb3_1***
+
+> Si une erreur sur le modèle du robot apparaît, tester de remplacer les **robot_model_type "differential"** par **robot_model_type "nav2_amcl::DifferentialMotionModel"**
+
+Pour lancer la multi localisation:
+```bash
+ros2 launch localization_server multi_localization.launch.py 
+```
+
+Lancer aussi:
+```bash
+rviz2
+```
+> **IMPORTANT: avoir la simulation et la localisation d'ouvertes pour faire le paramétrage dans rviz2.**
+
+Pour visualiser les différents composants et debugger:
+```bash
+ros2 run rqt_tf_tree rqt_tf_tree 
+```
+
+#### Un burger et un waffle
+
+Afin d'adapter la simulation pour afficher un turtlebot burger et un turtlebot waffle des configurations ont été modifiées.
+
+Sous **ros2_ws/src/tb3_multirobot_ros2/tb3_sim/turtlebot3_simulations/turtlebot3_gazebo/launch** :
+- création d'une copie de *turtlebot3_tc_world_two_robots.launch.py* :
+  ```python
+
+    def generate_launch_description():
+        [...]
+        world_file_name = 'turtlebot3_tc_two_robots_diff.world'
+        [...]
+        burger_robot_desc_path = os.path.join(get_package_share_directory("turtlebot3_description"), "urdf", "turtlebot3_burger.urdf")
+        waffle_robot_desc_path = os.path.join(get_package_share_directory("turtlebot3_description"), "urdf", "turtlebot3_waffle.urdf")
+
+        [...]
+            
+            Node(
+                package='robot_state_publisher',
+                executable='robot_state_publisher',
+                name='robot_state_publisher',
+                namespace=entity_name_0,
+                parameters=[{'frame_prefix': entity_name_0+'/', 'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', burger_robot_desc_path, ' robot_name:=', entity_name_0])}],
+                output="screen"
+            ),
+
+            Node(
+                package='robot_state_publisher',
+                executable='robot_state_publisher',
+                name='robot_state_publisher',
+                namespace=entity_name_1,
+                parameters=[{'frame_prefix': entity_name_1+'/', 'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', waffle_robot_desc_path, ' robot_name:=', entity_name_1])}],
+                output="screen"
+            )
+
+        [...]
+
+  ```
+
+Sous **ros2_ws/src/tb3_multirobot_ros2/tb3_sim/turtlebot3_simulations/turtlebot3_gazebo/models** :
+- Duplication du dossier turtlebot3_waffle en turtlebot3_waffle_1, opérer tous les changements nécessaires dans **model.sdf** pour que tb3_1 soit écrit aux mêmes endroit que le **model.sdf** de **turtlebot3_burger_1**.
+- Duplication du fichier **turtlebot3_tc_two_robots.world** et changement de l'uri **model://turtlebot3_burger_1** en **model://turtlebot3_waffle_1**.
+
+### Avec 3 robots
+
+Basé sur le code fourni pour [2 robots](#avec-2-robots) le défi est d'en ajouter 1 autre pour mieux s'approprier le code.
+
+- Pour placer deux *burger* et un *waffle* il suffit de copier le dossier préceddemment créé mais cette fois avec pour nom **turtlebot3_waffle_2**, en opérant les changements internes nécessaires.
+- Le fichier de monde doit aussi être dupliqué et changé en ajoutant un robot et ses coordonées:
+```xml
+<pose>0 -1.2 0.01 0.0 0.0 0.0</pose>
+```
+- Le fichier *launch* sera dupliqué et changé en ajoutant les Nodes nécessaires et les liens vers les bonnes desscriptions de robots.
+- Dans le package de localisation, il est nécessaire de créer un nouveau launch qui lance un Node de plus et qui est relié au fichier de config **tb3_2_amcl_config.yaml** qui est à créer
