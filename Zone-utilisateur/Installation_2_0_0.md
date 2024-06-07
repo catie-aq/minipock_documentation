@@ -9,8 +9,13 @@ sidebar_position: 2
 - Installer [ROS2 humble](https://docs.ros.org/en/humble/Installation.html)
 - Installer docker [optionnel]
 
-## Installation sur le PC 🖥
+## Installation de la Stack Robotique | ROS2 🤖
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="standalone" label="Standalone 🖥" default>
 Créér un workspace ROS2 et cloner les dépôts MiniPock
 
 ```shell
@@ -37,6 +42,41 @@ ros2 run micro_ros_setup create_agent_ws.sh
 colcon build --merge-install
 source install/setup.bash
 ```
+
+</TabItem>
+
+<TabItem value="docker" label="Docker 🐳">
+
+```shell
+git clone git@github.com:catie-aq/minipock.git
+cd minipock
+```
+
+En utilisant [`devcontainer`](https://code.visualstudio.com/docs/remote/containers) ouvrez le dossier `minipock` dans Visual Studio Code et exécutez la commande VSCode `Dev Containers: Reopen in Container`.
+
+En utlisant docker, exécutez la commande suivante :
+
+```shell
+cd .devcontainer
+docker build -t minipock .
+```
+
+```shell
+cd ..
+docker run -it -e DISPLAY=${DISPLAY} -e DEBUG=1 -e ROS_DOMAIN_ID=10 --network=host --privileged -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -v .:/workspaces/minipock/ minipock /bin/bash
+```
+
+Une fois dans le container, exécutez les commandes suivantes :
+
+```shell
+cd /workspaces/minipock
+source /opt/ros/humble/setup.bash
+source /workspaces/minipock/install/setup.bash
+colcon build --symlink-install --merge-install
+```
+
+</TabItem>
+</Tabs>
 
 :::info
 
@@ -86,7 +126,7 @@ west build -b zest_core_stm32l4a6rg app/base-application
 west flash
 ```
 
-## Installation stack Contrôle moteurs 
+## Installation stack Contrôle moteurs
 
 L’application de contrôle moteur est basée sous Mbed OS.
 
