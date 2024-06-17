@@ -410,11 +410,76 @@ def spawn(use_sim_time):
 
 ### Logique ROS2
 
+#### Adaptation des bridges
+
+La manière de créer les bridges doit être adaptée, la fonction crée une liste de bridge à effectuer. On ajoute d'abord les bridge communs, ici la clock. Puis pour chaque robot on bridge avec leur namespace tous les topics:
+- spawn_multiple.launch.py:
+    ```python
+    bridges_list = [
+            bridges.clock(),
+        ]
+        for robot in robots:
+            bridges_list.extend([
+                bridges.pose(model_name=robot['name']),
+                bridges.joint_states(model_name=robot['name'], world_name=world_name),
+                bridges.odometry(model_name=robot['name']),
+                bridges.cmd_vel(model_name=robot['name']),
+                bridges.scan_lidar(model_name=robot['name']),
+                bridges.tf(model_name=robot['name']),
+        ])
+    ```
+Il faut aussi adapter la classe qui s'occupe des bridges en vérifiant la correspondance entre les paths de cette classe et ceux générés par gazebo avec :
+```bash
+gz topic -l
+```
+Par exemple le topictf sous gazebo doit avoir le path suivant:
+```python
+def tf(model_name):
+    return bridge.Bridge(
+        gz_topic=f"/model/{model_name}/tf",
+        ros_topic=f"/tf",
+        gz_type="gz.msgs.Pose_V",
+        ros_type="tf2_msgs/msg/TFMessage",
+        direction=bridge.BridgeDirection.GZ_TO_ROS,
+    )
+```
+
+
+#### Paramètres du plugin diff-drive-system
+Grâce à la [documention du plugin diff-drive-system](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1DiffDrive.html) les paramètres ont pû être adapté.
+
+Il faut ajouter les namespace devant les topics pour lesquels le plugin doit lire ou écrire des données.
+
+```xml
+<plugin
+    filename="gz-sim-diff-drive-system"
+    name="gz::sim::systems::DiffDrive">
+    <left_joint>stepper_left_wheel_joint</left_joint>
+    <right_joint>stepper_right_wheel_joint</right_joint>
+    <wheel_separation>0.335</wheel_separation>
+    <wheel_radius>0.036</wheel_radius>
+    <odom_publish_frequency>50</odom_publish_frequency>
+
+    <topic>${namespace}/cmd_vel</topic>
+    <odom_topic>${namespace}/odom</odom_topic>
+    <child_frame_id>${namespace}/base_footprint</child_frame_id>
+    <frame_id>${namespace}/odom</frame_id>
+</plugin>
+```
+
+#### Teleop
+
+ros2 run minipock_teleop teleop_keyboard --ros-args --
+remap cmd_vel:=/minipock_0/cmd_vel
+
+à changer du coup
+
 Cette partie traite  le côté séparation des entités sous ros2, donc séparation des topics, nodes, etc.
 
 ## Doc utile
-[Plugin Diff_drive documentation](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1DiffDrive.html)
-
 [How to kill a node](https://answers.ros.org/question/323329/how-to-kill-nodes-in-ros2/)
 
 [Doc des packages gazebo utilisés dans la description des robots](https://gazebosim.org/api/sim/8/namespacegz_1_1sim_1_1systems.html#nested-classes)
+
+[static_state_publisher](https://ocw.tudelft.nl/course-lectures/5-3-3-tf-tf2-ros-command-line-tools-static_transform_publisher/)
+
