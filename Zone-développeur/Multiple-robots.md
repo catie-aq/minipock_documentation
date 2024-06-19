@@ -4,11 +4,14 @@ sidebar_position: 8
 ---
 
 # Turtlebot3
+
 ## Simulation de Navigation Multi-robot dans ROS2
+
 ### Avec 2 robots
+
 #### 2 turtlebots burger
 
-- Sources : 
+- Sources :
   - [Online Course from The Construct](https://app.theconstruct.ai/open-classes/ca4e2636-c3e1-4b14-8149-da1a193fcb0e/)
   - [Vidéo liée au Cours](https://www.youtube.com/watch?v=cGUueuIAFgw&t=1703s)
 
@@ -25,6 +28,7 @@ Précision du début du tuto:
 Un conteneur Docker a été utilisé avec les configurations suivantes (basé sur celui du Minipock):
 
 - devcontainer.json :
+
     ```json
     {
     "dockerFile": "Dockerfile",
@@ -57,6 +61,7 @@ Un conteneur Docker a été utilisé avec les configurations suivantes (basé su
     ```
 
 - Dockerfile :
+
     ```Dockerfile
     FROM osrf/ros:humble-desktop-jammy as base
 
@@ -74,19 +79,25 @@ Un conteneur Docker a été utilisé avec les configurations suivantes (basé su
     ```
 
 **Ne pas oublier de sourcer si cel ne marche pas correctement.**
+
 ##### Lancement de la siùulation
+
 Afin de lancer la simulation :
+
 ```bash
 ros2 launch turtlebot3_gazebo turtlebot3_tc_world_two_robots.launch.py
 ```
 
 Les commandes pour déplacer les robots par clavier sont:
+
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/tb3_0/cmd_vel
 ```
+
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/tb3_1/cmd_vel
 ```
+
 ##### Configuration de la localisation multi-robot
 
 Les étapes décrites par le cours ont été suivies mais certaines modifications ont dues être apportées.
@@ -94,6 +105,7 @@ Les étapes décrites par le cours ont été suivies mais certaines modification
 Sous **ros2_ws > src > localization_server > launch** :
 
 - multi_localization.launch.py :
+
   ```python
     import os
 
@@ -154,7 +166,9 @@ Sous **ros2_ws > src > localization_server > launch** :
   ```
 
 Sous **ros2_ws > src > localization_server > config** :
+
 - tb3_0_amcl_config.yaml :
+
 ```python
 tb3_0/amcl:
   ros__parameters:
@@ -214,22 +228,27 @@ tb3_0/amcl_rclcpp_node:
   ros__parameters:
     use_sim_time: True
 ```
+
 > **Éditer le code précédent pour adapter à *tb3_1***
 
 > Si une erreur sur le modèle du robot apparaît, tester de remplacer les **robot_model_type "differential"** par **robot_model_type "nav2_amcl::DifferentialMotionModel"**
 
 Pour lancer la multi localisation:
+
 ```bash
 ros2 launch localization_server multi_localization.launch.py 
 ```
 
 Lancer aussi:
+
 ```bash
 rviz2
 ```
+
 > **IMPORTANT: avoir la simulation et la localisation d'ouvertes pour faire le paramétrage dans rviz2.**
 
 Pour visualiser les différents composants et debugger:
+
 ```bash
 ros2 run rqt_tf_tree rqt_tf_tree 
 ```
@@ -239,7 +258,9 @@ ros2 run rqt_tf_tree rqt_tf_tree
 Afin d'adapter la simulation pour afficher un turtlebot burger et un turtlebot waffle des configurations ont été modifiées.
 
 Sous **ros2_ws/src/tb3_multirobot_ros2/tb3_sim/turtlebot3_simulations/turtlebot3_gazebo/launch** :
+
 - création d'une copie de *turtlebot3_tc_world_two_robots.launch.py* :
+
   ```python
 
     def generate_launch_description():
@@ -274,6 +295,7 @@ Sous **ros2_ws/src/tb3_multirobot_ros2/tb3_sim/turtlebot3_simulations/turtlebot3
   ```
 
 Sous **ros2_ws/src/tb3_multirobot_ros2/tb3_sim/turtlebot3_simulations/turtlebot3_gazebo/models** :
+
 - Duplication du dossier turtlebot3_waffle en turtlebot3_waffle_1, opérer tous les changements nécessaires dans **model.sdf** pour que tb3_1 soit écrit aux mêmes endroit que le **model.sdf** de **turtlebot3_burger_1**.
 - Duplication du fichier **turtlebot3_tc_two_robots.world** et changement de l'uri **model://turtlebot3_burger_1** en **model://turtlebot3_waffle_1**.
 
@@ -283,18 +305,22 @@ Basé sur le code fourni pour [2 robots](#avec-2-robots) le défi est d'en ajout
 
 - Pour placer deux *burger* et un *waffle* il suffit de copier le dossier préceddemment créé mais cette fois avec pour nom **turtlebot3_waffle_2**, en opérant les changements internes nécessaires.
 - Le fichier de monde doit aussi être dupliqué et changé en ajoutant un robot et ses coordonées:
+
 ```xml
 <pose>0 -1.2 0.01 0.0 0.0 0.0</pose>
 ```
+
 - Le fichier *launch* sera dupliqué et changé en ajoutant les Nodes nécessaires et les liens vers les bonnes desscriptions de robots.
 - Dans le package de localisation, il est nécessaire de créer un nouveau launch qui lance un Node de plus et qui est relié au fichier de config **tb3_2_amcl_config.yaml** qui est à créer
 
-
 # Minipock
+
 ## Simulation 2 Robots
 
 Afin d'obtenir deux robots différents sur une même simulation il faut d'abord avoir deux robots visuellement séparés, avec chacun leurs composants et leur propre origine de spawn.
+
 ### Visuel
+
 #### Adaptation de la description du robot
 
 Il faut commencer par changer la manière de décrire un robot.
@@ -308,18 +334,22 @@ Nous allons détailler les différents points importants.
 ```
 
 Ce namespace doit être propagé aux différents fichiers de description, par exemple:
-* L'appel du fichier de description *motor_stepper* dans le fichier principal:
+
+- L'appel du fichier de description *motor_stepper* dans le fichier principal:
+
     ```xml
     <xacro:motor_stepper namespace="${namespace}" name="stepper_left" 
                         x="0.0" y="0.133" z="-0.086" R="0.0" P="0.0"
                         Y="0.0" side="1"/>
     ```
-* L'utilisation dans le fichier des moteurs, exemple d'intégration (*base_link est créé dans un autre fichier*)
+
+- L'utilisation dans le fichier des moteurs, exemple d'intégration (*base_link est créé dans un autre fichier*)
+
   ```xml
   <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:macro name="motor_stepper"
     params="namespace:=minipock name:=stepper_left x:=0.0 y:=0.0 z:=0.0
-				       R:=0.0 P:=0.0 Y:=0.0 side:=1">
+           R:=0.0 P:=0.0 Y:=0.0 side:=1">
     <link name="${namespace}/${name}_base_link">
     [...]
     </link>
@@ -329,10 +359,10 @@ Ce namespace doit être propagé aux différents fichiers de description, par ex
       <origin xyz="${x} ${y} ${z}" rpy="${R} ${P} ${Y}" />
     </joint>
     </xacro:macro>
-</robot>
+    </robot>
   ```
 
-* L'ajout d'une entité *base_footprint* au dessus de *base_link*:
+- L'ajout d'une entité *base_footprint* au dessus de *base_link*:
   La convention de nommage est d'ajouter ce lien au-dessus de *base_link*. *base_link* est l'entité reliée à tous les éléments du robot, *base_footprint* est l'entité représentant l'origine globale du robot dans le monde.
   <!-- description peut-être à revoir -->
   ```xml
@@ -347,18 +377,22 @@ Ce namespace doit être propagé aux différents fichiers de description, par ex
         </joint>
     </xacro:macro>
     ```
+
 #### Transmission du namespace
 
 Pour transmettre le namespace il faut s'assurer dans le module *model.py* que le namespace soit bien transmis.
 Dans ce module qui génère le fichier sdf à partir de l'urdf on a:
+
 ```python
     xacro_command = ["xacro", urdf, f"namespace:={ROBOT_NAME}"]
 ```
 
 #### Point de spawn
+
 D'après la documentation du package **ros_gz_sim** et plus précisement de l'éxécutable *create* ([exemple d'utilisation](https://gazebosim.org/docs/harmonic/migrating_gazebo_classic_ros2_packages#spawn-model)), il est possible de préciser le point de spawn du modèle.
 
 Ce paramètre est rajouté dans les arguments à retourner au *Node Create*, ici dans le module *model.py*:
+
 ```python
 def spawn_args(robot_name=ROBOT_NAME, robot_position_str):
     """
@@ -372,7 +406,9 @@ def spawn_args(robot_name=ROBOT_NAME, robot_position_str):
     model_sdf = generate()
     return ["-string", model_sdf, "-name", ROBOT_NAME, "-allow_renaming", "false", "-x", x, "-y", y, "-z", z]
 ```
+
 Le *Node Create* a donc aussi été dupliqué dans le fichier de spawn de *minipock_gz*:
+
 ```python
 def spawn(use_sim_time):
     """
@@ -413,7 +449,9 @@ def spawn(use_sim_time):
 #### Adaptation des bridges
 
 La manière de créer les bridges doit être adaptée, la fonction crée une liste de bridge à effectuer. On ajoute d'abord les bridge communs, ici la clock. Puis pour chaque robot on bridge avec leur namespace tous les topics:
+
 - spawn_multiple.launch.py:
+
     ```python
     bridges_list = [
             bridges.clock(),
@@ -428,11 +466,15 @@ La manière de créer les bridges doit être adaptée, la fonction crée une lis
                 bridges.tf(model_name=robot['name']),
         ])
     ```
+
 Il faut aussi adapter la classe qui s'occupe des bridges en vérifiant la correspondance entre les paths de cette classe et ceux générés par gazebo avec :
+
 ```bash
 gz topic -l
 ```
+
 Par exemple le topictf sous gazebo doit avoir le path suivant:
+
 ```python
 def tf(model_name):
     return bridge.Bridge(
@@ -444,8 +486,8 @@ def tf(model_name):
     )
 ```
 
-
 #### Paramètres du plugin diff-drive-system
+
 Grâce à la [documention du plugin diff-drive-system](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1DiffDrive.html) les paramètres ont pû être adapté.
 
 Il faut ajouter les namespace devant les topics pour lesquels le plugin doit lire ou écrire des données.
@@ -477,9 +519,9 @@ remap cmd_vel:=/minipock_0/cmd_vel
 Cette partie traite  le côté séparation des entités sous ros2, donc séparation des topics, nodes, etc.
 
 ## Doc utile
+
 [How to kill a node](https://answers.ros.org/question/323329/how-to-kill-nodes-in-ros2/)
 
 [Doc des packages gazebo utilisés dans la description des robots](https://gazebosim.org/api/sim/8/namespacegz_1_1sim_1_1systems.html#nested-classes)
 
 [static_state_publisher](https://ocw.tudelft.nl/course-lectures/5-3-3-tf-tf2-ros-command-line-tools-static_transform_publisher/)
-
