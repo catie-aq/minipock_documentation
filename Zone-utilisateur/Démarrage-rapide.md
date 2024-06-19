@@ -24,6 +24,12 @@ Lancez ensuite le noeud de téléopération
 ros2 run minipock_teleop teleop_keyboard
 ```
 
+*Nouvelle version*:
+```shell
+ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
+```
+-> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*
+
 Suivez ensuite les indications du terminal
 
 ```shell

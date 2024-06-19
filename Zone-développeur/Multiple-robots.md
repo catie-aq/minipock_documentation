@@ -4,9 +4,7 @@ sidebar_position: 8
 ---
 
 # Turtlebot3
-
-## Simulation de Navigation Multi-robot dans ROS2
-
+## Simulation de Navigation Multi-robots dans ROS2
 ### Avec 2 robots
 
 #### 2 turtlebots burger
@@ -313,77 +311,75 @@ Basé sur le code fourni pour [2 robots](#avec-2-robots) le défi est d'en ajout
 - Dans le package de localisation, il est nécessaire de créer un nouveau launch qui lance un Node de plus et qui est relié au fichier de config **tb3_2_amcl_config.yaml** qui est à créer
 
 # Minipock
+## Simulation Multi Robots
 
-## Simulation 2 Robots
+Afin d'obtenir des robots différents sur une même simulation il faut d'abord avoir des **robots visuellement séparés**, avec **chacun leurs composants et leur propre origine de spawn**.
 
-Afin d'obtenir deux robots différents sur une même simulation il faut d'abord avoir deux robots visuellement séparés, avec chacun leurs composants et leur propre origine de spawn.
-
-### Visuel
-
+### Séparation Visuel
 #### Adaptation de la description du robot
 
-Il faut commencer par changer la manière de décrire un robot.
-Nous allons détailler les différents points importants.
+Il faut commencer par **changer la manière de décrire un robot**. Le *namespace* isole les contextes des robots en leur permettant de garder les mêmes noms de composants, *topics*, services, etc. **Pour ce projet le "/" entre le namespace et les noms des entités sera inclut dans par défaut afin de permettre qu'un *namespace vide* utilisé dans la description marche.**
+Nous allons détailler les différents points importants en partant du **fichier de description principal ci-dessous**.
 
+Extrait du fichier principal de description(*minipock_v2.urdf.xacro*)
+- *Le namespace est ajouté dans les arguments globales du fichiers et celui-ci pourra être transmis depuis l'extérieur.*
 ```xml
 <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:arg name="namespace" default="minipock"/>
+  <xacro:arg name="namespace" default="minipock/"/>
   <xacro:property name="namespace" value="$(arg namespace)"/>
 </robot>
 ```
 
-Ce namespace doit être propagé aux différents fichiers de description, par exemple:
-
-- L'appel du fichier de description *motor_stepper* dans le fichier principal:
-
+Ce namespace doit être **propagé aux différents fichiers de description**, cela sera montré dans les **extraits servant d'exemple ci-après**:
+* L'appel du fichier de description *motor_stepper* dans le fichier principal (*minipock_v2.urdf.xacro*):
     ```xml
     <xacro:motor_stepper namespace="${namespace}" name="stepper_left"
                         x="0.0" y="0.133" z="-0.086" R="0.0" P="0.0"
                         Y="0.0" side="1"/>
     ```
-
-- L'utilisation dans le fichier des moteurs, exemple d'intégration (*base_link est créé dans un autre fichier*)
-
+* L'utilisation dans le fichier des moteurs (*motor_stepper_v2.xacro*), exemple d'intégration (*base_link est créé dans un autre fichier*)
   ```xml
-  <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
-    <xacro:macro name="motor_stepper"
-    params="namespace:=minipock name:=stepper_left x:=0.0 y:=0.0 z:=0.0
-           R:=0.0 P:=0.0 Y:=0.0 side:=1">
-    <link name="${namespace}/${name}_base_link">
-    [...]
-    </link>
-    <joint name="${name}_joint" type="fixed">
-      <parent link="${namespace}/base_link" />
-      <child link="${namespace}/${name}_base_link" />
-      <origin xyz="${x} ${y} ${z}" rpy="${R} ${P} ${Y}" />
-    </joint>
-    </xacro:macro>
+    <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
+        <xacro:macro name="motor_stepper"
+            params="namespace:=minipock/ name:=stepper_left x:=0.0 y:=0.0 z:=0.0
+                            R:=0.0 P:=0.0 Y:=0.0 side:=1">
+            <link name="${namespace}${name}_base_link">
+            [...]
+            </link>
+            <joint name="${name}_joint" type="fixed">
+                <parent link="${namespace}base_link" />
+                <child link="${namespace}${name}_base_link" />
+                <origin xyz="${x} ${y} ${z}" rpy="${R} ${P} ${Y}" />
+            </joint>
+        </xacro:macro>
     </robot>
-  ```
+    ```
 
-- L'ajout d'une entité *base_footprint* au dessus de *base_link*:
-  La convention de nommage est d'ajouter ce lien au-dessus de *base_link*. *base_link* est l'entité reliée à tous les éléments du robot, *base_footprint* est l'entité représentant l'origine globale du robot dans le monde.
-  <!-- description peut-être à revoir -->
+* L'ajout d'un *cordinate frame* nommée *base_footprint* au dessus de *base_link*:
+  La convention de nommage est d'ajouter ce lien au-dessus de *base_link*. *Base_link* a son origine là où le robot est initialisé souvent au centre du robot ou au point de pivot.
+  *Base_footprint* représente l'origine projetée sous le robot dans le monde.
+  ([Documentation sur les *coordinates frames*](https://automaticaddison.com/coordinate-frames-and-transforms-for-ros-based-mobile-robots/))
+
   ```xml
     <xacro:macro name="minipock_base" params="namespace:=minipock name:=minipock">
 
-        <link name="${namespace}/base_footprint">
+        <link name="${namespace}base_footprint">
         </link>
         <joint name="base_joint" type="fixed">
-        <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
-        <parent link="${namespace}/base_footprint"/>
-        <child link="${namespace}/base_link"/>
+            <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+            <parent link="${namespace}base_footprint"/>
+            <child link="${namespace}base_link"/>
         </joint>
     </xacro:macro>
     ```
 
 #### Transmission du namespace
 
-Pour transmettre le namespace il faut s'assurer dans le module *model.py* que le namespace soit bien transmis.
+Pour transmettre le namespace il faut s'assurer dans le module *model_v2.py* que le namespace soit bien transmis.
 Dans ce module qui génère le fichier sdf à partir de l'urdf on a:
 
 ```python
-    xacro_command = ["xacro", urdf, f"namespace:={ROBOT_NAME}"]
+    xacro_command = ["xacro", urdf, f"namespace:={ROBOT_NAME}/"]
 ```
 
 #### Point de spawn
@@ -405,52 +401,14 @@ def spawn_args(robot_name=ROBOT_NAME, robot_position_str):
     model_sdf = generate()
     return ["-string", model_sdf, "-name", ROBOT_NAME, "-allow_renaming", "false", "-x", x, "-y", y, "-z", z]
 ```
-
-Le *Node Create* a donc aussi été dupliqué dans le fichier de spawn de *minipock_gz*:
-
-```python
-def spawn(use_sim_time):
-    """
-    Spawn the robot in the current Gazebo world.
-
-    :param position: list of a position and rotation
-    :return: list of launch processes
-    """
-    launch_processes = [
-        Node(
-            package="ros_gz_sim",
-            executable="create",
-            output="screen",
-            arguments=minipock_description.model_v2.spawn_args(robot_name = robot_name_0,
-            robot_position_str=robot_position_0_str),
-        )
-    ]
-    spawn_launch_path = os.path.join(
-        get_package_share_directory("minipock_description"), "launch", "spawn_multiple.launch.py"
-    )
-    spawn_description_0 = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(spawn_launch_path),
-        launch_arguments={
-            "robot_name": robot_name_0,
-            "robot_position_str": robot_position_0_str,
-            "use_sim_time": use_sim_time,
-        }.items(),
-    )
-    launch_processes.append(spawn_description_0)
-
-    [...]
-    [pareil pour minipock_1]
-    [...]
-```
+Le *Node Create* sera donc créé autant de fois que de robots demandés dans la simulation
 
 ### Logique ROS2
 
 #### Adaptation des bridges
 
-La manière de créer les bridges doit être adaptée, la fonction crée une liste de bridge à effectuer. On ajoute d'abord les bridge communs, ici la clock. Puis pour chaque robot on bridge avec leur namespace tous les topics:
-
-- spawn_multiple.launch.py:
-
+La manière de créer les bridges doit être adaptée, la fonction crée une liste de *bridges* à effectuer. On ajoute d'abord les *bridges* communs, ici les messages de *clock*. Puis pour chaque robot on *bridge* avec leur *namespace* tous les *topics*:
+- Extrait de la fonction *bridge* dans *spawn_multiple.launch.py*:
     ```python
     bridges_list = [
             bridges.clock(),
@@ -471,9 +429,7 @@ Il faut aussi adapter la classe qui s'occupe des bridges en vérifiant la corres
 ```bash
 gz topic -l
 ```
-
-Par exemple le topictf sous gazebo doit avoir le path suivant:
-
+Par exemple le *gz_topic **tf*** doit avoir le *path* suivant puisque c'est celui créé par Gazebo:
 ```python
 def tf(model_name):
     return bridge.Bridge(
@@ -486,10 +442,9 @@ def tf(model_name):
 ```
 
 #### Paramètres du plugin diff-drive-system
+Grâce à la [documention du plugin diff-drive-system](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1DiffDrive.html) les paramètres ont pû être adaptés.
 
-Grâce à la [documention du plugin diff-drive-system](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1DiffDrive.html) les paramètres ont pû être adapté.
-
-Il faut ajouter les namespace devant les topics pour lesquels le plugin doit lire ou écrire des données.
+Il faut ajouter les *namespaces* devant les *topics* pour lesquels le plugin doit lire ou écrire des données.
 
 ```xml
 <plugin
@@ -501,26 +456,41 @@ Il faut ajouter les namespace devant les topics pour lesquels le plugin doit lir
     <wheel_radius>0.036</wheel_radius>
     <odom_publish_frequency>50</odom_publish_frequency>
 
-    <topic>${namespace}/cmd_vel</topic>
-    <odom_topic>${namespace}/odom</odom_topic>
-    <child_frame_id>${namespace}/base_footprint</child_frame_id>
-    <frame_id>${namespace}/odom</frame_id>
+    <topic>${namespace}cmd_vel</topic>
+    <odom_topic>${namespace}odom</odom_topic>
+    <child_frame_id>${namespace}base_footprint</child_frame_id>
+    <frame_id>${namespace}odom</frame_id>
 </plugin>
 ```
+#### Launchfile de spawn
+
+À cette étape plusieurs robot speuvent être créés, il s'agit donc d'automatiser le fichier de *launch* pour adapter les services au nombre de robots demandés.
+
+Cela est réalisé au travers d'une liste de robots initialisées avec le nombre de robots souhaités et dont les positions sont actuellement générées en spirale.
+
+Lancement de la simulation multi-robots:
+```shell
+ros2 launch minipock_gz spawn_multiple.launch.py opt_param_1:=my_param
+```
+Les paramètres optionnels:
+- **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
+- **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
+- **world** (string): Nom du monde. Par défaut ***minipock_world***.
+
+![](../img/multi_minipock.png)
 
 #### Teleop
 
-ros2 run minipock_teleop teleop_keyboard --ros-args --
-remap cmd_vel:=/minipock_0/cmd_vel
+Afin de contrôler les différents robots présents en simulation, il était possible d'utiliser la fonction *remap*:
+* Exemple avec le namespace *minipock0*:
+    ```bash
+    ros2 run minipock_teleop teleop_keyboard --ros-args --
+    remap cmd_vel:=/minipock0/cmd_vel
+    ```
 
-à changer du coup
+Mais pour simplifier ce choix du *namespace* (*et donc du robot*), cette feature a été implémenté dans la classe [TeleopController](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_navigation/minipock_teleop/minipock_teleop/teleop_keyboard.py#L68-L79)
 
-Cette partie traite  le côté séparation des entités sous ros2, donc séparation des topics, nodes, etc.
-
-## Doc utile
-
-[How to kill a node](https://answers.ros.org/question/323329/how-to-kill-nodes-in-ros2/)
-
-[Doc des packages gazebo utilisés dans la description des robots](https://gazebosim.org/api/sim/8/namespacegz_1_1sim_1_1systems.html#nested-classes)
-
-[static_state_publisher](https://ocw.tudelft.nl/course-lectures/5-3-3-tf-tf2-ros-command-line-tools-static_transform_publisher/)
+```bash
+ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
+```
+-> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*

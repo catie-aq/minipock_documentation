@@ -29,6 +29,11 @@ ros2 launch minipock_cartographer cartographer.launch.py
 ros2 run minipock_teleop teleop_keyboard
 ```
 
+*Nouvelle version*
+```shell
+ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_mamespace/
+```
+
 ![image](../img/275229440.png)
 
 ## Sauvegarde de la carte {#2c258d3ec9744687958db9cbb2cf7c3c}
