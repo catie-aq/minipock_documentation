@@ -21,7 +21,7 @@ Lancez ensuite le SLAM en utilisant `cartographer`
 ros2 launch minipock_cartographer cartographer.launch.py
 ```
 
-![](../img/2064346604.png)
+![image](../img/2064346604.png)
 
 ## Lancement de la téléopération {#ef9c9ef603684c6c9fe4e889951ae5ac}
 
@@ -29,7 +29,7 @@ ros2 launch minipock_cartographer cartographer.launch.py
 ros2 run minipock_teleop teleop_keyboard
 ```
 
-![](../img/275229440.png)
+![image](../img/275229440.png)
 
 ## Sauvegarde de la carte {#2c258d3ec9744687958db9cbb2cf7c3c}
 

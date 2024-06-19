@@ -3,8 +3,6 @@ title: Description
 sidebar_position: 0
 ---
 
-
-
 - Maintainer status: developed
 - Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
 - License: Apache 2.0

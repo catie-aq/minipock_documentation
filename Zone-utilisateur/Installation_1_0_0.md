@@ -28,8 +28,8 @@ Documentation officiel : [https://micro.ros.org/docs/tutorials/core/first_applic
 :::
 
 - Dépendances Python :
- 	- python3-rosdep2
- 	- python3-vcstool
+  - python3-rosdep2
+  - python3-vcstool
 - Créer le workspace et télecharger Micro-ROS
 
 ```bash
@@ -152,7 +152,6 @@ Configuration par défaut :
 
 - ROS domain ID : 10
 
-### 
 - Baudrate : 460800
 
 Lancer le `micro-ROS` agent afin d’établir le lien avec l’environnement ROS2.

@@ -7,7 +7,7 @@ sidebar_position: 6
 
 ## Architecture {#7e03927da8fc45818ec435f2b3b69272}
 
-![](../img/1044571662.png)
+![image1](../img/1044571662.png)
 
 ## Interface {#cf465c6ecfe1442ca910367aada66ae0}
 
@@ -24,7 +24,7 @@ flowchart LR
   µROS_agent --UART µROS--> app_µROS
  app_µROS --UART Protobuf--> RBDC
   end
-  
+
 ```
 
 ## Communication µROS - ROS2 {#3a7cbeeb6d0d4894808da1fd514ed1cb}

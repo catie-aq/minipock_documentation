@@ -4,11 +4,6 @@ sidebar_position: 2
 ---
 
 
-
-_This documentation is auto-generated from_ [_catie-aq/minipock/README.md_](https://github.com/catie-aq/minipock)
-
-# MiniPock Keyboard Teleoperation {#e267ca6de1c94fa0ab6d1cd7311d4bff}
-
 Ce package fournit un moyen de contrôler le robot MiniPock. Il a été créé pour être utilisé avec ROS 2. Il permet de
 commander le mouvement linéaire et angulaire du robot à l'aide des touches de clavier suivantes : `z`, `q`, `s`, `d` et `x`.
 

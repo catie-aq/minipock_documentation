@@ -5,10 +5,6 @@ sidebar_position: 1
 
 
 
-_This documentation is auto-generated from_ [_catie-aq/minipock/README.md_](https://github.com/catie-aq/minipock)
-
-# MiniPock Gazebo {#67d61bf22e8d482c9c8e4f1a181ba0e1}
-
 - Maintainer status: developed
 - Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
 - License: Apache 2.0

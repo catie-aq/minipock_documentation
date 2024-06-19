@@ -3,12 +3,6 @@ title: Navigation
 sidebar_position: 4
 ---
 
-
-
-_This documentation is auto-generated from_ [_catie-aq/minipock/README.md_](https://github.com/catie-aq/minipock)
-
-# MiniPock Navigation {#6e309bfcb251484388b824aefbd4915a}
-
 - Maintainer status: developed
 - Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
 - License: Apache 2.0

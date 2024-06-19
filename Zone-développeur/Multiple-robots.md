@@ -67,7 +67,7 @@ Un conteneur Docker a été utilisé avec les configurations suivantes (basé su
 
     RUN apt-get update && apt-get install -y \
         python3-pip \
-        python3-colcon-common-extensions 
+        python3-colcon-common-extensions
 
     RUN sudo apt-get -y install ros-humble-xacro
     RUN sudo apt-get -y install ros-humble-navigation2
@@ -75,7 +75,7 @@ Un conteneur Docker a été utilisé avec les configurations suivantes (basé su
 
     RUN sudo apt-get -y install ros-humble-gazebo-ros-pkgs
 
-    RUN rm -rf /var/lib/apt/lists/* 
+    RUN rm -rf /var/lib/apt/lists/*
     ```
 
 **Ne pas oublier de sourcer si cel ne marche pas correctement.**
@@ -230,13 +230,12 @@ tb3_0/amcl_rclcpp_node:
 ```
 
 > **Éditer le code précédent pour adapter à *tb3_1***
-
 > Si une erreur sur le modèle du robot apparaît, tester de remplacer les **robot_model_type "differential"** par **robot_model_type "nav2_amcl::DifferentialMotionModel"**
 
 Pour lancer la multi localisation:
 
 ```bash
-ros2 launch localization_server multi_localization.launch.py 
+ros2 launch localization_server multi_localization.launch.py
 ```
 
 Lancer aussi:
@@ -250,7 +249,7 @@ rviz2
 Pour visualiser les différents composants et debugger:
 
 ```bash
-ros2 run rqt_tf_tree rqt_tf_tree 
+ros2 run rqt_tf_tree rqt_tf_tree
 ```
 
 #### Un burger et un waffle
@@ -271,7 +270,7 @@ Sous **ros2_ws/src/tb3_multirobot_ros2/tb3_sim/turtlebot3_simulations/turtlebot3
         waffle_robot_desc_path = os.path.join(get_package_share_directory("turtlebot3_description"), "urdf", "turtlebot3_waffle.urdf")
 
         [...]
-            
+
             Node(
                 package='robot_state_publisher',
                 executable='robot_state_publisher',
@@ -338,7 +337,7 @@ Ce namespace doit être propagé aux différents fichiers de description, par ex
 - L'appel du fichier de description *motor_stepper* dans le fichier principal:
 
     ```xml
-    <xacro:motor_stepper namespace="${namespace}" name="stepper_left" 
+    <xacro:motor_stepper namespace="${namespace}" name="stepper_left"
                         x="0.0" y="0.133" z="-0.086" R="0.0" P="0.0"
                         Y="0.0" side="1"/>
     ```
@@ -422,7 +421,7 @@ def spawn(use_sim_time):
             package="ros_gz_sim",
             executable="create",
             output="screen",
-            arguments=minipock_description.model_v2.spawn_args(robot_name = robot_name_0, 
+            arguments=minipock_description.model_v2.spawn_args(robot_name = robot_name_0,
             robot_position_str=robot_position_0_str),
         )
     ]

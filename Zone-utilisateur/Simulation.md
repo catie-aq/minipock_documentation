@@ -14,9 +14,9 @@ Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut
 Lancez ensuite la simulation
 
 ```shell
-ros2 launch minipock_gz spawn.launch.py 
+ros2 launch minipock_gz spawn.launch.py
 ```
 
-![](../img/161003219.png)
+![image](../img/161003219.png)
 
 Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation) pour utiliser le MiniPock.

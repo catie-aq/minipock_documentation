@@ -3,12 +3,6 @@ title: Cartographer
 sidebar_position: 3
 ---
 
-
-
-_This documentation is auto-generated from_ [_catie-aq/minipock/README.md_](https://github.com/catie-aq/minipock)
-
-# MiniPock Cartographer {#7dc75c0e272e450c9975dcd51c18d3f3}
-
 - Maintainer status: developed
 - Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
 - License: Apache 2.0
