@@ -3,12 +3,6 @@ title: Bringup
 sidebar_position: 5
 ---
 
-- Maintainer status: developed
-- Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
-- License: Apache 2.0
-- Bug / feature tracker: [https://github.com/catie-aq/minipock_bringup/issues](https://github.com/catie-aq/minipock_bringup/issues)
-- Source: git [https://github.com/catie-aq/minipock_bringup](https://github.com/catie-aq/minipock_bringup)
-
 Ce package fournit l'implémentation du Bringup de la plateforme Minipock.
 
 ## Installation

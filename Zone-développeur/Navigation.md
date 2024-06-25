@@ -3,12 +3,6 @@ title: Navigation
 sidebar_position: 4
 ---
 
-- Maintainer status: developed
-- Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
-- License: Apache 2.0
-- Bug / feature tracker: [https://github.com/catie-aq/minipock_navigation/issues](https://github.com/catie-aq/minipock_navigation/issues)
-- Source: git [https://github.com/catie-aq/minipock_navigation](https://github.com/catie-aq/minipock_navigation)
-
 Ce package fournit l'implémentation de la stack de navigation 2 sur le robot MiniPock.
 
 ## Installation {#79d64bd3aaf042feb01d16e8000f95ab}

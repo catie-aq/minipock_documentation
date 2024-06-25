@@ -3,12 +3,6 @@ title: Description
 sidebar_position: 0
 ---
 
-- Maintainer status: developed
-- Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
-- License: Apache 2.0
-- Bug / feature tracker: [https://github.com/catie-aq/minipock_description/issues](https://github.com/catie-aq/minipock_description/issues)
-- Source: git [https://github.com/catie-aq/minipock_description](https://github.com/catie-aq/minipock_description)
-
 Ce package contient les fichiers de description du robot MiniPock au format URDF utilisant `xacro` pour la génération
 des modèles. Le dépôt n'est pas lié à un simulateur spécifique, mais il est conçu pour fonctionner avec Gazebo Sim
 Garden et ROS 2 Humble.

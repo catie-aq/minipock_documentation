@@ -3,12 +3,6 @@ title: Cartographer
 sidebar_position: 3
 ---
 
-- Maintainer status: developed
-- Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
-- License: Apache 2.0
-- Bug / feature tracker: [https://github.com/catie-aq/minipock_navigation/issues](https://github.com/catie-aq/minipock_navigation/issues)
-- Source: git [https://github.com/catie-aq/minipock_navigation](https://github.com/catie-aq/minipock_navigation)
-
 Ce package fournit l'implémentation de la stack de navigation 2 sur le robot MiniPock.
 
 ## Installation {#8316a1edb0f748eba8ee5d87953303e3}

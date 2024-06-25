@@ -3,6 +3,8 @@ title: Multiple Robots
 sidebar_position: 8
 ---
 
+[Contrôle de robots multiples](https://github.com/catie-aq/minipock/pull/15)
+
 # Turtlebot3
 ## Simulation de Navigation Multi-robots dans ROS2
 ### Avec 2 robots

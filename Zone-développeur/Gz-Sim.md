@@ -3,14 +3,6 @@ title: Gz Sim
 sidebar_position: 1
 ---
 
-
-
-- Maintainer status: developed
-- Maintainer: Sébastien Delpeuch [s.delpeuch@catie.fr](mailto:s.delpeuch@catie.fr)
-- License: Apache 2.0
-- Bug / feature tracker: [https://github.com/catie-aq/minipock_gz/issues](https://github.com/catie-aq/minipock_gz/issues)
-- Source: git [https://github.com/catie-aq/minipock_gz](https://github.com/catie-aq/minipock_gz)
-
 Ensemble de ressources permettant de configurer l'environnement de simulation Gazebo ainsi que les plugins ROS
 nécessaires dans le cadre du projet MiniPock.
 Ce package configure par ailleurs les différents bridges nécessaires pour la communication entre ROS 2 Humble et Gazebo
