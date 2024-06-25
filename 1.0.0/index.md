@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# MiniPock
+# 1.0.0
 
 import DocCardList from '@theme/DocCardList';
 
