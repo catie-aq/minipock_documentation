@@ -19,7 +19,7 @@ Lancez ensuite la simulation
 ros2 launch minipock_gz spawn.launch.py
 ```
 
-![image](../img/161003219.png)
+![image](../../img/161003219.png)
 
 Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation) pour utiliser le MiniPock.
 
@@ -35,4 +35,4 @@ Les paramètres optionnels:
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
 - **world** (string): Nom du monde. Par défaut ***minipock_world***.
 
-![](../img/multi_minipock.png)
+![](../../img/multi_minipock.png)
