@@ -3,32 +3,41 @@ title: Démarrage rapide
 sidebar_position: 3
 ---
 
+## Démarrer MiniPock 🚀
 
+:::warning
 
-## Démarrer MiniPock 🚀 {#bbbde3b86d824d01a98ad75313615caa}
+Ce guide suppose que vous avez un MiniPock flashé prêt à l'emploi
 
-Configuration par défaut :
-
-- ROS domain ID : 10
-- Micro-ROS agent baudrate : 460800
+:::
 
 Assurez-vous d’être connecté au même réseau que le MiniPock avec votre PC
 
-## Téléopération {#9fa4cec3ac414b8bb55229ac3283074a}
+## Téléopération
 
 Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
 
 Lancez ensuite le noeud de téléopération
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="standalone" label="Robot Unique" default>
+
 ```shell
 ros2 run minipock_teleop teleop_keyboard
 ```
 
-*Nouvelle version*:
+</TabItem>
+
+<TabItem value="multiple" label="Plusieurs robots">
+
 ```shell
 ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
 ```
--> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*
+
+</TabItem>
 
 Suivez ensuite les indications du terminal
 
@@ -48,7 +57,13 @@ x : force stop
 CTRL-C to quit
 ```
 
-## Bringup {#5943dcb3269b49bea680ff7a32b1fdd7}
+## Bringup
+
+:::danger
+
+Ce noeud est nécessaire **uniquement** pour manipuler le robot réel. Il est automatiquement lancé par la stack de navigation lorsqu'elle est utilisée
+
+:::
 
 Le bringup permet de lancer les noeud de base du MiniPock comme le `robot_state_publisher`,
 
