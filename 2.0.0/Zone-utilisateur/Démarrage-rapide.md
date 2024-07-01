@@ -39,6 +39,8 @@ ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespac
 
 </TabItem>
 
+</Tabs>
+
 Suivez ensuite les indications du terminal
 
 ```shell

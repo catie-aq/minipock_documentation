@@ -45,6 +45,8 @@ ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespac
 
 </TabItem>
 
+</Tabs>
+
 ![image](../../img/275229440.png)
 
 ## Sauvegarde de la carte

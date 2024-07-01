@@ -33,6 +33,8 @@ ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_ti
 
 </TabItem>
 
+</Tabs>
+
 La `map` utilisée est le fichier `map.yaml` dans `minipock_navigation2/map/map.yaml`
 
 Lorsque Rviz sera ouvert cliquez sur “Startup” dans l’onglet de navigation 2 pour lancer la stack de navigation

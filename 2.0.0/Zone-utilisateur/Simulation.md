@@ -56,3 +56,5 @@ Les paramètres optionnels:
 ![](../../img/multi_minipock.png)
 
 </TabItem>
+
+</Tabs>
