@@ -9,4 +9,6 @@ sidebar_position: 0
 
 La plateforme MiniPock est une plateforme robotique modulaire. Le support de ROS2 ainsi que la compatibilité avec la plateforme 6TRON permettent de développer des applications plus rapidement.
 
-![image](../../img/688469590.png)
+![image](../../img/differnetiel.png)
+
+![image](../../img/holonome.png)
