@@ -9,34 +9,42 @@ La navigation consiste à déplacer le robot d'un endroit à la destination spé
 
 La navigation permet à un robot de se déplacer de la position actuelle à la position cible désignée sur la carte en utilisant la carte, l'encodeur du robot, le capteur IMU et le capteur de distance. La procédure d'exécution de cette tâche est la suivante.
 
-## Lancement de la navigation {#9fc2d811ea2d41768c782ec5cec8e1bf}
+## Lancement de la navigation
 
 Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
 
-Lancez la navigation
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="real" label="Réel" default>
 
 ```shell
 ros2 launch minipock_navigation2 navigation2.launch.py
 ```
 
-Si l'environnement est simulé il faut lancer
+</TabItem>
+
+<TabItem value="simulation" label="Simulation">
 
 ```shell
 ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_time:=true
 ```
 
+</TabItem>
+
 La `map` utilisée est le fichier `map.yaml` dans `minipock_navigation2/map/map.yaml`
 
 Lorsque Rviz sera ouvert cliquez sur “Startup” dans l’onglet de navigation 2 pour lancer la stack de navigation
 
-## Estimer la position initiale {#c2321eafe318407bb862d107bf6016b0}
+## Estimer la position initiale
 
 L'estimation initiale de la pose doit être effectuée avant de lancer la navigation, car ce processus initialise les paramètres AMCL qui sont essentiels à la navigation. MiniPock doit être correctement localisé sur la carte avec les données du capteur LDS qui se superposent parfaitement à la carte affichée.
 
 - Cliquez sur le bouton 2D Pose Estimate dans le menu RViz2.
 - Cliquez sur la carte où se trouve le robot et faites glisser la grande flèche verte vers la direction à laquelle le robot fait face.
 
-## Donner un ordre de navigation {#bf4026c011e3480aba7be41efbe2dd03}
+## Donner un ordre de navigation
 
 - Cliquez sur le bouton Navigation2 Goal dans le menu RViz2.
 - Cliquez sur la carte pour définir la destination du robot et faites glisser la flèche verte vers la direction vers laquelle le robot sera orienté.
@@ -46,6 +54,6 @@ L'estimation initiale de la pose doit être effectuée avant de lancer la naviga
 
 ![image](../../img/1887772889.png)
 
-## Paramétrage {#2d7fb3cd591b41c4b090ea7fde2b5039}
+## Paramétrage
 
 Les paramètres de navigation sont paramétrables dans le fichier [`minipock.yaml`](https://github.com/catie-aq/minipock_navigation/blob/main/minipock_navigation2/param/minipock.yaml) en suivant le [Guide de paramétrage](https://navigation.ros.org/tuning/index.html).

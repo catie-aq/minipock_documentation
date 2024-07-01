@@ -5,7 +5,7 @@ sidebar_position: 4
 
 Le SLAM (Simultaneous Localization and Mapping) est une technique permettant de dessiner une carte en estimant la position actuelle dans un espace arbitraire.
 
-## Lancement du SLAM {#e7a5c8609f8743da8f042bee1ba5444a}
+## Lancement du SLAM
 
 Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
 
@@ -23,20 +23,31 @@ ros2 launch minipock_cartographer cartographer.launch.py
 
 ![image](../../img/2064346604.png)
 
-## Lancement de la téléopération {#ef9c9ef603684c6c9fe4e889951ae5ac}
+## Lancement de la téléopération
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="standalone" label="Robot Unique" default>
 
 ```shell
 ros2 run minipock_teleop teleop_keyboard
 ```
 
-*Nouvelle version*
+</TabItem>
+
+<TabItem value="multiple" label="Plusieurs robots">
+
 ```shell
-ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_mamespace/
+ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
 ```
+
+</TabItem>
 
 ![image](../../img/275229440.png)
 
-## Sauvegarde de la carte {#2c258d3ec9744687958db9cbb2cf7c3c}
+## Sauvegarde de la carte
 
 La carte est dessinée sur la base de l'odométrie du robot, des informations de tf et de scan. Ces données cartographiques sont dessinées dans la fenêtre RViz au fur et à mesure que le MiniPock se déplace. Après avoir créé une carte complète de la zone souhaitée, il est nécessaire de sauvegarder les données.
 
@@ -48,8 +59,6 @@ Le fichier de carte est enregistré dans le répertoire où le nœud map_saver_c
 ros2 run nav2_map_server map_saver_cli -f ~/map
 ```
 
-L'option -f spécifie l'emplacement du dossier et le nom du fichier dans lequel les fichiers doivent être enregistrés.
-Avec la commande ci-dessus, map.pgm et map.yaml seront enregistrés dans le dossier personnel.        type: string
-        description: "Fetch submodules in checkout ? (true/recursive/false)"
-        required: false
-        default: "false"
+L'option `-f` spécifie l'emplacement du dossier et le nom du fichier dans lequel les fichiers doivent être enregistrés.
+
+Avec la commande ci-dessus, map.pgm et map.yaml seront enregistrés dans le dossier personnel.
