@@ -1,5 +1,5 @@
 ---
-title: Installation 2.0.0
+title: Installation
 sidebar_position: 2
 ---
 
@@ -10,6 +10,12 @@ sidebar_position: 2
 - Installer docker [optionnel]
 
 ## Installation de la Stack Robotique | ROS2 🤖
+
+:::warning
+
+L'installation de la stack robotique est nécessaire pour contrôler le MiniPock
+
+:::
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -90,7 +96,9 @@ docker run -it --rm --env ROS_DOMAIN_ID=10 -v /dev:/dev --privileged --net=host 
 
 :::
 
-## Installation de la Stack Applicative | Micro ROS 🪁
+## Flasher le MiniPock 🚀
+
+### Installation de la Stack Applicative | Micro ROS 🪁
 
 :::info
 
@@ -100,12 +108,7 @@ Module officiel µROS : [https://github.com/micro-ROS/micro_ros_zephyr_module.gi
 
 L’application de la stack applicative est basée sous Zephyr OS. L’application doit exposer un nœud ROS afin de pourvoir interagir avec un environnement ROS2.
 
-### Dépendances {#45397276e5024c74bfe840680862fe61}
-
 - Installer les [outils Zephyr OS](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)
-
-## Installation {#85e0637d9d67419dbce9bc52312cfef8}
-
 - Initialiser le workspace Zephyr
 
 ```bash
@@ -126,16 +129,11 @@ west build -b zest_core_stm32l4a6rg app/base-application
 west flash
 ```
 
-## Installation stack Contrôle moteurs
+### Installation stack Contrôle moteurs
 
 L’application de contrôle moteur est basée sous Mbed OS.
 
-### Dépendances {#2d14f162b5f549c1b0284cd56392767c}
-
 - Installer les [outils Mbed OS](https://6tron.catie-lab.net/ressources_logicielles/mbed/)
-
-### Installation {#fbec217e749943ce9b9b04c154b04666}
-
 - Téléchargement l’application
 
 ```bash
@@ -155,10 +153,3 @@ mbed deploy
 mbed compile
 sixtron flash
 ```
-
-:::tip
-
-MINIPOCK_MAX_LIN_VEL = 2.0
-MINIPOCK_MAX_ANG_VEL = 12.0
-
-:::
