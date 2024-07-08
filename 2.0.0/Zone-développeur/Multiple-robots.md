@@ -20,8 +20,6 @@ Le Rosject est disponible au téléchargement à la création d'un compte sur le
 Ce cours ne détaille que les changements inhérents à la localisation des turtlebots. Le reste ayant été fait en amont pour simplifier le tuto.
 
 Pour plus de clareté, lire le document de cours.
-Précision du début du tuto:
-> In this unit, the simulation is properly set up with two TurtleBot3 robots, one named tb3_0 and the other tb3_1
 
 ##### Configurations globales
 
@@ -212,14 +210,6 @@ tb3_0/amcl:
     scan_topic: "scan" # no namespace because it is automatically added --> scan_topic: "tb3_0/scan"
     map_topic: "/map" # topic is global, "/" is added to not append namespace automatically --> map_topic: "/map"
 
-    # ACTIVATE THE set_initial_pose WHEN YOU HAVE A PROPER initial_pose, by uncommenting the code below
-    #set_initial_pose: true
-    #initial_pose:
-    # x: 7.778
-    # y: -9.589
-    # z: 0.0
-    # a: -0.211
-
 tb3_0/amcl_map_client:
   ros__parameters:
     use_sim_time: True
@@ -230,6 +220,7 @@ tb3_0/amcl_rclcpp_node:
 ```
 
 > **Éditer le code précédent pour adapter à *tb3_1***
+
 > Si une erreur sur le modèle du robot apparaît, tester de remplacer les **robot_model_type "differential"** par **robot_model_type "nav2_amcl::DifferentialMotionModel"**
 
 Pour lancer la multi localisation:
@@ -245,12 +236,6 @@ rviz2
 ```
 
 > **IMPORTANT: avoir la simulation et la localisation d'ouvertes pour faire le paramétrage dans rviz2.**
-
-Pour visualiser les différents composants et debugger:
-
-```bash
-ros2 run rqt_tf_tree rqt_tf_tree
-```
 
 #### Un burger et un waffle
 
@@ -320,7 +305,10 @@ Afin d'obtenir des robots différents sur une même simulation il faut d'abord a
 ### Séparation Visuel
 #### Adaptation de la description du robot
 
-Il faut commencer par **changer la manière de décrire un robot**. Le *namespace* isole les contextes des robots en leur permettant de garder les mêmes noms de composants, *topics*, services, etc. **Pour ce projet le "/" entre le namespace et les noms des entités sera inclut dans par défaut afin de permettre qu'un *namespace vide* utilisé dans la description marche.**
+Il faut commencer par **changer la manière de décrire un robot**. Le *namespace* isole les contextes des robots en leur permettant de garder les mêmes noms de composants, *topics*, services, etc. 
+
+**Pour ce projet le "/" entre le namespace et les noms des entités sera inclut par défaut à des endroits clés afin de permettre qu'un *namespace vide* utilisé dans la description marche.**
+
 Nous allons détailler les différents points importants en partant du **fichier de description principal ci-dessous**.
 
 Extrait du fichier principal de description(*minipock_v2.urdf.xacro*)
@@ -409,7 +397,7 @@ Le *Node Create* sera donc créé autant de fois que de robots demandés dans la
 
 #### Adaptation des bridges
 
-La manière de créer les bridges doit être adaptée, la fonction crée une liste de *bridges* à effectuer. On ajoute d'abord les *bridges* communs, ici les messages de *clock*. Puis pour chaque robot on *bridge* avec leur *namespace* tous les *topics*:
+La manière de créer les *bridges* doit être adaptée, la fonction crée une liste de *bridges* à effectuer. On ajoute d'abord les *bridges* communs, ici les messages de *clock*. Puis pour chaque robot on *bridge* avec leur *namespace* tous les *topics*:
 - Extrait de la fonction *bridge* dans *spawn_multiple.launch.py*:
     ```python
     bridges_list = [
@@ -464,6 +452,11 @@ Il faut ajouter les *namespaces* devant les *topics* pour lesquels le plugin doi
     <frame_id>${namespace}odom</frame_id>
 </plugin>
 ```
+
+#### Données du lidar
+
+Les données du lidar transitent par divers *nodes*. L'un deux a pour but de **récupérer les données dans le topic */scan_raw* et les trasnférer dans */scan***. Un ***namespace* a donc été appliqué** à chacun de ces *topics* ainsi que dans le *header* du message transmis.
+
 #### Launchfile de spawn
 
 À cette étape plusieurs robot speuvent être créés, il s'agit donc d'automatiser le fichier de *launch* pour adapter les services au nombre de robots demandés.
@@ -497,3 +490,50 @@ ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespac
 ```
 -> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*
 -> *Dans le cas où le topic cmd_vel demandé n'existerait pas, la liste des topics cmd_vel existants sera donnée*
+
+## Navigation Multi-Robots
+### Problématique de Nav2
+Dans la première version où un seul *minipock* était concerné, les modules de navigation et localisation étaient tous lancés par le fichier de *bring up* fourni par [*Nav2*](https://docs.nav2.org/index.html).
+
+Lors de la transition vers le lancement de la navigation pour plusieurs robots, l'automatisation fournie dans la bibliothèque a eu ses limites.
+
+En effet, le *bring up Nav2* permet bien d'attribuer et isoler la navigation/localisation pour chaque robot, mais n'est pas, à notre connaissance, permissive sur le partage de certaines ressources.
+
+Afin de partager la carte par exemple, il était nécessaire de ne pas intégrer le serveur de la carte dans le namespace d'un robot.
+De plus, leur isolation permet également de séparer le *topic /tf* et */tf_static* que nous voulions garder communs.
+
+### Configuration des modules de navigation et localisation
+La configuration des modules de navigation et de localisation est réalisée dans un fichier *yaml*.
+Les changements concernent les noms des *topics* utilisés par les différents modules.
+
+Afin de pouvoir changer pour chaque robot le *namespace* associé, un mot clé est utilisé et sera réécrit: ***<robot_namespace>***.
+
+Il en va de même pour changer la valeur permettant d'utiliser le temps de la simulation ou non, le mot clé ***<use_sim_time>*** sera remplacé par *true* ou *false*.
+
+Exemple des changements à effectuer pour l'*AMCL* par rapport aux précédentes configurations:
+```yaml
+ amcl:
+   ros__parameters:
+    use_sim_time: <use_sim_time>
+    base_frame_id: "<robot_namespace>/base_footprint"
+    odom_frame_id: "<robot_namespace>/odom"
+    scan_topic: /<robot_namespace>/scan
+    map_topic: /map
+```
+
+### Configuration rviz
+
+Pour un usage plus rapide et pratique de rviz, grâce à un fichier dédié le premier robot est automatiquement pris en compte avec le bon *namespace* par remplacement du mot-clé ***<robot_namespace>***. Les autres robots sont actuellement à ajouter à la main.
+
+### Lancement des modules de navigation et localisation
+
+Au sein du fichier de lancement les différentes configurations précedemment dtaillées sont utilisées. Les différents noms des robots sont stockés et parcourus afin de lancer séparament les modules de navigation et localisation.
+
+Seuls le serveur de la carte et le *lifecycle manager node* sont lancés indépendamment puisque la finalité est de partager la carte entre les robots.
+
+Actuellement les informations des robots sont à changer directement dans le fichier.
+
+Il est possible de lancer navigation et localisation en forçant le démarrage des *nodes* grâce à:
+```bash
+ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true
+```
