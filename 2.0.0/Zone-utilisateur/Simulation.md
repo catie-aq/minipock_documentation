@@ -44,16 +44,17 @@ Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation
 Cette version permet de créer et afficher le nombre souhaité de minipocks.
 
 ```shell
-ros2 launch minipock_gz spawn_multiple.launch.py opt_param_1:=my_param
+ros2 launch minipock_gz spawn_multiple.launch.py use_sim_time:=true opt_param_1:=my_param
 ```
-
 Les paramètres optionnels:
-
+- **use_sim_time** (bool): Pour utiliser le temps de la simulation par défaut
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
 - **world** (string): Nom du monde. Par défaut ***minipock_world***.
 
-![](../../img/multi_minipock.png)
+**Pour une utiisation couplée avec la navigation, mettre *use_sim_time* à *true***
+
+***<p style="text-align: center;">![](../../img/multi_robot/multi_minipock.png)</p>***
 
 </TabItem>
 

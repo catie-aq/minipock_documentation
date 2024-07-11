@@ -33,6 +33,14 @@ ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_ti
 
 </TabItem>
 
+<TabItem value="simulation_multiple" label="Simulation Multi-robot">
+
+Il est possible de **lancer navigation et localisation en forçant le démarrage** grâce à:
+```bash
+ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true
+```
+</TabItem>
+
 </Tabs>
 
 La `map` utilisée est le fichier `map.yaml` dans `minipock_navigation2/map/map.yaml`

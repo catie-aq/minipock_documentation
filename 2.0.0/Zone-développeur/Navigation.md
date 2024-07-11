@@ -18,15 +18,38 @@ colcon build --packages-select minipock_navigation2
 
 Pour utiliser ce package il est nécessaire de lancer la simulation gazebo du robot MiniPock installée via le package [minipock_gz](https://github.com/catie-aq/minipock_gz) en utilisant le launch file suivant:
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="simulation" label="Simulation">
+
 ```bash
 ros2 launch minipock_gz minipock.launch.py
 ```
 
 puis de lancer le launch file de navigation:
 
-```bash
-ros2 launch minipock_navigation2 navigation2.launch.py
+```shell
+ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_time:=true
 ```
+
+</TabItem>
+
+<TabItem value="simulation_multiple" label="Simulation Multi-robot">
+
+```shell
+ros2 launch minipock_gz spawn_multiple.launch.py use_sim_time:=true opt_param_1:=my_param
+```
+
+Puis il est possible de **lancer navigation et localisation en forçant le démarrage** grâce à:
+
+```bash
+ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true
+```
+</TabItem>
+
+</Tabs>
 
 ## Configuration {#efdc531954184e9d9f35e9c06f2cc5d0}
 

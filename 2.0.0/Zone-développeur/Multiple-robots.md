@@ -7,8 +7,7 @@ sidebar_position: 8
 
 ___
 
-<h1 style="text-align: center;">Projet d'entraînement Turtlebot3</h3>
-
+# Projet d'entraînement Turtlebot3
 ## Simulation de Navigation Multi-robots dans ROS2
 ### Avec 2 robots
 
@@ -75,7 +74,7 @@ Basé sur le code fourni pour [2 robots](#avec-2-robots) le défi est d'en ajout
 
 ___
 
-<h1 style="text-align: center;">Minipock</h3>
+# Minipock
 
 ## Architecture globale
 
@@ -317,3 +316,5 @@ Il est possible de **lancer navigation et localisation en forçant le démarrage
 ```bash
 ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true
 ```
+
+![](../../img/multi_robot/nav_multi_1.png)
