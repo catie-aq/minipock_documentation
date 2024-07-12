@@ -289,20 +289,12 @@ Afin de pouvoir changer pour chaque robot le *namespace* associé, un mot clé e
 
 Il en va de même pour changer la valeur permettant d'utiliser le temps de la simulation ou non, le mot clé ***<use_sim_time>*** sera remplacé par *true* ou *false*.
 
-Exemple des changements à effectuer pour l'[*AMCL*](https://github.com/catie-aq/minipock/blob/09435b17507b52b29ae9f65fc20cb2c501f1b210/minipock_navigation/minipock_navigation2/param/minipock_multi.yaml#L1-L42) par rapport aux précédentes configurations:
-```yaml
- <robot_namespace>/amcl:
-   ros__parameters:
-    use_sim_time: <use_sim_time>
-    base_frame_id: "<robot_namespace>/base_footprint"
-    odom_frame_id: "<robot_namespace>/odom"
-    scan_topic: /<robot_namespace>/scan
-    map_topic: /map
-```
+Exemple des changements à effectuer pour l'[*AMCL*](https://github.com/catie-aq/minipock/blob/09435b17507b52b29ae9f65fc20cb2c501f1b210/minipock_navigation/minipock_navigation2/param/minipock_multi.yaml#L1-L42) par [rapport aux précédentes configurations:](https://github.com/catie-aq/minipock/blob/d594d1f84faa8a4c3e4839c3e5541078dba00a61/minipock_navigation/minipock_navigation2/param/minipock_multi.yaml#L1-L42)
 
->On obtient alors des transformées qui sont reliées par la même carte:
->
->![](../../img/multi_robot/tf_tree_two_minipock_map.drawio.png)
+
+On obtient alors des transformées qui sont reliées par la même carte:
+
+![](../../img/multi_robot/tf_tree_two_minipock_map.drawio.png)
 
 ### Lancement des modules de navigation et localisation
 
