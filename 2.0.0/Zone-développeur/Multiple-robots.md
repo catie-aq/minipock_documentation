@@ -285,9 +285,9 @@ De plus, leur isolation permet également de séparer le *topic /tf* et */tf_sta
 La configuration des modules de navigation et de localisation est réalisée dans un fichier *yaml*.
 Les changements concernent les noms des *topics* utilisés par les différents modules.
 
-Afin de pouvoir changer pour chaque robot le *namespace* associé, un mot clé est utilisé et sera réécrit: ***<robot_namespace>***.
+Afin de pouvoir changer pour chaque robot le *namespace* associé, un mot clé est utilisé et sera réécrit: ***\<robot_namespace\>***.
 
-Il en va de même pour changer la valeur permettant d'utiliser le temps de la simulation ou non, le mot clé ***<use_sim_time>*** sera remplacé par *true* ou *false*.
+Il en va de même pour changer la valeur permettant d'utiliser le temps de la simulation ou non, le mot clé ***\<use_sim_time\>*** sera remplacé par *true* ou *false*.
 
 Exemple des changements à effectuer pour l'[*AMCL*](https://github.com/catie-aq/minipock/blob/09435b17507b52b29ae9f65fc20cb2c501f1b210/minipock_navigation/minipock_navigation2/param/minipock_multi.yaml#L1-L42) par [rapport aux précédentes configurations:](https://github.com/catie-aq/minipock/blob/d594d1f84faa8a4c3e4839c3e5541078dba00a61/minipock_navigation/minipock_navigation2/param/minipock_multi.yaml#L1-L42)
 
