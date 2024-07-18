@@ -78,7 +78,7 @@ ___
 
 ## Architecture globale
 
-***<p style="text-align: center;">![](../../img/multi_robot/architecture_globale_minipock_gray.drawio.png)</p>***
+![](../../img/multi_robot/architecture_globale_minipock_gray.drawio.png)
 
 ## Simulation Multi Robots
 
@@ -90,7 +90,7 @@ Afin d'obtenir des robots différents sur une même simulation il faut d'abord a
 
 Il faut commencer par **changer la manière de décrire un robot**. Le *namespace* isole les contextes des robots en leur permettant de garder les mêmes noms de composants, *topics*, services, etc.
 
-***<p style="text-align: center;">![](../../img/multi_robot/isolation_description.drawio.png)</p>***
+![](../../img/multi_robot/isolation_description.drawio.png)
 
 **Pour ce projet le "/" entre le namespace et les noms des entités sera inclut par défaut à des endroits clés afin de permettre qu'un *namespace vide* utilisé dans la description marche.**
 
@@ -262,7 +262,7 @@ Les paramètres optionnels:
 
 **Pour une utiisation couplée avec la navigation, mettre *use_sim_time* à *true***
 
-***<p style="text-align: center;">![](../../img/multi_robot/multi_minipock.png)</p>***
+![](../../img/multi_robot/multi_minipock.png)
 
 #### Teleop
 

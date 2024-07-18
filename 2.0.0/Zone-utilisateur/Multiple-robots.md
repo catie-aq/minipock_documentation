@@ -22,8 +22,6 @@ Les paramètres optionnels:
 
 **Pour une utiisation couplée avec la navigation, mettre *use_sim_time* à *true***
 
-***<p style="text-align: center;">![](../../img/multi_robot/multi_minipock.png)</p>***
-
 ![](../../img/multi_robot/multi_minipock.png)
 
 ## Téléopération
