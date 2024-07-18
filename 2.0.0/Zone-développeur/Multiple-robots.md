@@ -338,5 +338,3 @@ Les paramètres optionnels:
 - **autostart** (bool): Démarrage automatique des éléments de navigation. Par défaut ***false***.
 - **use_composition** (bool): Les nodes sont lancés dans des containers afin d'optimiser la mémoire et les ressources CPU utilisées. Par défaut ***true***.
 - **use_respawn** (bool): Relance les nodes qui plantent. À utiliser si la composition est désactivée. Par défaut: ***false***.
-
-![](../../img/multi_robot/nav_multi_1.png)

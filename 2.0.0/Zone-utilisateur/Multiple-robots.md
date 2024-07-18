@@ -24,7 +24,7 @@ Les paramètres optionnels:
 
 ***<p style="text-align: center;">![](../../img/multi_robot/multi_minipock.png)</p>***
 
-![](../../img/multi_minipock.png)
+![](../../img/multi_robot/multi_minipock.png)
 
 ## Téléopération
 

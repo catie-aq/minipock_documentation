@@ -35,4 +35,4 @@ Les paramètres optionnels:
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
 - **world** (string): Nom du monde. Par défaut ***minipock_world***.
 
-![](../../img/multi_minipock.png)
+![](../../img/multi_robot/multi_minipock.png)
