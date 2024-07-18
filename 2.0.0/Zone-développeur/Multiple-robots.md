@@ -8,7 +8,9 @@ sidebar_position: 8
 ___
 
 # Projet d'entraînement Turtlebot3
+
 ## Simulation de Navigation Multi-robots dans ROS2
+
 ### Avec 2 robots
 
 #### 2 turtlebots burger
@@ -47,7 +49,7 @@ Les étapes décrites par le cours ont été suivies et consistent à isoler les
 
 Ce *rosject* permet d'avoir une première vision d'une séparation simple de la localisation des robots en gardant un point d'accroche commun: **la carte**.
 
-Dans ce cours, la bibliothèque utilisée pour fournir une localisation et navigation automatisée est celle de [Nav2](https://docs.nav2.org/). 
+Dans ce cours, la bibliothèque utilisée pour fournir une localisation et navigation automatisée est celle de [Nav2](https://docs.nav2.org/).
 
 Les modules de Nav2 sont lancés un par un par des fichiers personnalisés.
 
@@ -70,8 +72,6 @@ Basé sur le code fourni pour [2 robots](#avec-2-robots) le défi est d'en ajout
 
 - Dans le fichier de lancement il est aussi nécessaire d'ajouter un *node AMCL* en plus ainsi que la configuration adaptée en associant le bon *namespace*.
 
-<br>
-
 ___
 
 # Minipock
@@ -85,9 +85,10 @@ ___
 Afin d'obtenir des robots différents sur une même simulation il faut d'abord avoir des **robots visuellement séparés**, avec **chacun leurs composants et leur propre origine de spawn**.
 
 ### Isolation Visuelle
+
 #### Adaptation de la description du robot
 
-Il faut commencer par **changer la manière de décrire un robot**. Le *namespace* isole les contextes des robots en leur permettant de garder les mêmes noms de composants, *topics*, services, etc. 
+Il faut commencer par **changer la manière de décrire un robot**. Le *namespace* isole les contextes des robots en leur permettant de garder les mêmes noms de composants, *topics*, services, etc.
 
 ***<p style="text-align: center;">![](../../img/multi_robot/isolation_description.drawio.png)</p>***
 
@@ -98,6 +99,7 @@ Nous allons détailler les différents points importants en partant du **fichier
 Extrait du fichier principal de description([minipock_v2.urdf.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/minipock_v2.urdf.xacro))
 
 - *Le namespace est ajouté dans les arguments globales du fichiers et celui-ci pourra être transmis depuis l'extérieur.*
+
 ```xml
 <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:arg name="namespace" default="minipock/"/>
@@ -106,13 +108,16 @@ Extrait du fichier principal de description([minipock_v2.urdf.xacro](https://git
 ```
 
 Ce namespace doit être **propagé aux différents fichiers de description**, cela sera montré dans les **extraits servant d'exemple ci-après**:
-* Appel du fichier de description *motor_stepper* dans le fichier principal ([minipock_v2.urdf.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/minipock_v2.urdf.xacro)):
+- Appel du fichier de description *motor_stepper* dans le fichier principal ([minipock_v2.urdf.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/minipock_v2.urdf.xacro)):
+
     ```xml
     <xacro:motor_stepper namespace="${namespace}" name="stepper_left"
                         x="0.0" y="0.133" z="-0.086" R="0.0" P="0.0"
                         Y="0.0" side="1"/>
     ```
+
 * Utilisation dans le fichier des moteurs ([motor_stepper_v2.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/motor_stepper_v2.xacro)):
+
   ```xml
     <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
         <xacro:macro name="motor_stepper"
@@ -131,8 +136,8 @@ Ce namespace doit être **propagé aux différents fichiers de description**, ce
     ```
 
 > Pour compléter l'isolation des robots,  il était nécessaire d'**ajouter une *coordinate frame*** nommée ***base_footprint*** au dessus de ***base_link***:
-> 
-> La **convention de nommage** est d'ajouter ce lien au-dessus de *base_link*. 
+>
+> La **convention de nommage** est d'ajouter ce lien au-dessus de *base_link*.
 > *Base_link* a son origine là où le robot est **initialisé** souvent au centre du robot ou au point de pivot.
 > *Base_footprint* représente l'origine projetée sous le robot dans le monde.
   ([Documentation sur les *coordinates frames*](https://automaticaddison.com/coordinate-frames-and-transforms-for-ros-based-mobile-robots/))
@@ -172,7 +177,9 @@ Le *Node Create* sera donc créé autant de fois que de robots demandés dans la
 #### Adaptation des bridges
 
 La manière de créer les ***bridges*** doit être adaptée, [la fonction crée une liste de *bridges* à effectuer et les *nodes* associés](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_gz/launch/spawn_multiple.launch.py#L181-L216). On ajoute d'abord les *bridges* communs, ici les messages de *clock*. **Puis pour chaque robot on associe les *topics* à un *namespace***:
+
 - Extrait de la fonction *bridge* dans [*spawn_multiple.launch.py*](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_gz/launch/spawn_multiple.launch.py):
+
     ```python
     bridges_list = [
             bridges.clock(),
@@ -193,7 +200,9 @@ Il faut aussi adapter la classe qui s'occupe des *bridges* en vérifiant la corr
 ```bash
 gz topic -l
 ```
+
 Par exemple le ***gz_topic tf*** doit avoir le *path* suivant puisque c'est celui **créé par Gazebo**:
+
 ```python
 def tf(model_name):
     return bridge.Bridge(
@@ -206,6 +215,7 @@ def tf(model_name):
 ```
 
 #### Paramètres du plugin diff-drive-system
+
 Grâce à la [documention du plugin diff-drive-system](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1DiffDrive.html) les paramètres ont pû être adaptés.
 
 Il faut ajouter les *namespaces* devant les *topics* pour lesquels le [plugin](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_description/urdf/minipock_v2.urdf.xacro#L26-L39) doit lire ou écrire des données dans le [fichier de description](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_description/urdf/minipock_v2.urdf.xacro).
@@ -238,10 +248,13 @@ Les données du lidar transitent par divers *nodes*. [L'un d'eux](https://github
 Les données sont stockées dans une liste initialisée avec le nombre de robots souhaités pour créer des noms incrémentaux et des positions générées en spirale autour de l'origine du monde.
 
 **Lancement de la simulation multi-robots:**
+
 ```shell
 ros2 launch minipock_gz spawn_multiple.launch.py use_sim_time:=true opt_param_1:=my_param
 ```
+
 Les paramètres optionnels:
+
 - **use_sim_time** (bool): Pour utiliser le temps de la simulation par défaut
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
@@ -254,24 +267,29 @@ Les paramètres optionnels:
 #### Teleop
 
 Afin de contrôler les différents robots présents en simulation, il était possible d'utiliser la fonction *remap*:
-* Exemple avec le namespace *minipock0*:
+
+- Exemple avec le namespace *minipock0*:
+
     ```bash
     ros2 run minipock_teleop teleop_keyboard --ros-args --
     remap cmd_vel:=/minipock0/cmd_vel
     ```
 
-Mais pour simplifier ce choix du *namespace* (et donc du robot), cette feature a été implémenté dans la classe [TeleopController](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_navigation/minipock_teleop/minipock_teleop/teleop_keyboard.py#L68-L79). 
+Mais pour simplifier ce choix du *namespace* (et donc du robot), cette feature a été implémenté dans la classe [TeleopController](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_navigation/minipock_teleop/minipock_teleop/teleop_keyboard.py#L68-L79).
 
 **Il faut donc utiliser:**
 
 ```bash
 ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
 ```
+
 -> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*
 -> *Dans le cas où le topic cmd_vel demandé n'existerait pas, la liste des topics cmd_vel existants sera donnée*
 
 ## Navigation Multi-Robots
+
 ### Problématique de Nav2
+
 Dans la première version où un seul *minipock* était concerné, les modules de navigation et localisation étaient tous lancés par le [fichier de *bring up*](https://github.com/ros-navigation/navigation2/blob/12a9c1d805847709e3b82f8dcfbb43c67b5b2937/nav2_bringup/launch/bringup_launch.py) fourni par [*Nav2*](https://docs.nav2.org/index.html).
 
 Lors de la transition vers le lancement de la navigation pour plusieurs robots, l'automatisation fournie dans la bibliothèque a eu ses limites.
@@ -282,6 +300,7 @@ Afin de partager la carte par exemple, il est **nécessaire de ne pas intégrer 
 De plus, leur isolation permet également de séparer le *topic /tf* et */tf_static* que nous voulions garder communs.
 
 ### Configuration des modules de navigation et localisation
+
 La configuration des modules de navigation et de localisation est réalisée dans un fichier *yaml*.
 Les changements concernent les noms des *topics* utilisés par les différents modules.
 
@@ -290,7 +309,6 @@ Afin de pouvoir changer pour chaque robot le *namespace* associé, un mot clé e
 Il en va de même pour changer la valeur permettant d'utiliser le temps de la simulation ou non, le mot clé ***\<use_sim_time\>*** sera remplacé par *true* ou *false*.
 
 Exemple des changements à effectuer pour l'[*AMCL*](https://github.com/catie-aq/minipock/blob/09435b17507b52b29ae9f65fc20cb2c501f1b210/minipock_navigation/minipock_navigation2/param/minipock_multi.yaml#L1-L42) par [rapport aux précédentes configurations:](https://github.com/catie-aq/minipock/blob/d594d1f84faa8a4c3e4839c3e5541078dba00a61/minipock_navigation/minipock_navigation2/param/minipock_multi.yaml#L1-L42)
-
 
 On obtient alors des transformées qui sont reliées par la même carte:
 
@@ -305,10 +323,13 @@ Au sein du fichier de lancement, les différentes configurations précedemment d
 >Actuellement les informations des robots sont à changer directement dans le fichier.
 
 Il est possible de **lancer navigation et localisation en forçant le démarrage des *nodes*** grâce à:
+
 ```bash
 ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true nb_robots:=nb_robots robot_name:=robot_name
 ```
+
 Les paramètres optionnels:
+
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
 - **start_rviz** (bool): Démarrage automatique de rviz. Par défaut ***true***.

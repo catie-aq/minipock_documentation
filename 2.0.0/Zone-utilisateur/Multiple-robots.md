@@ -54,5 +54,3 @@ Les paramètres optionnels:
 
 
 Une fenêtre rviz se lancera automatiquement sans nécessité de startup manuel.
-
-![](../../img/multi_robot/nav_multi_1.png)
