@@ -1,7 +1,13 @@
 ---
 title: Multiple Robots
-sidebar_position: 7
+sidebar_position: 8
 ---
+
+:::danger
+
+Work in progress
+
+:::
 
 L'utilisation de plusieurs robots au sein d'une même simulation reprends la logique des différents guides précedents: l'[**installation**](Installation.md), le [**démarrage rapide**](Démarrage-rapide.md), la [**navigation**](Navigation.md) et la [**simulation**](Simulation.md).
 
@@ -22,7 +28,7 @@ Les paramètres optionnels:
 
 **Pour une utiisation couplée avec la navigation, mettre *use_sim_time* à *true***
 
-![](../../img/multi_robot/multi_minipock.png)
+![](../img/multi_robot/multi_minipock.png)
 
 ## Téléopération
 

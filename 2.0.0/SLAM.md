@@ -1,6 +1,6 @@
 ---
 title: SLAM
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 Le SLAM (Simultaneous Localization and Mapping) est une technique permettant de dessiner une carte en estimant la position actuelle dans un espace arbitraire.
@@ -21,7 +21,7 @@ Lancez ensuite le SLAM en utilisant `cartographer`
 ros2 launch minipock_cartographer cartographer.launch.py
 ```
 
-![image](../../img/2064346604.png)
+![image](../img/2064346604.png)
 
 ## Lancement de la téléopération
 
@@ -47,7 +47,7 @@ ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespac
 
 </Tabs>
 
-![image](../../img/275229440.png)
+![image](../img/275229440.png)
 
 ## Sauvegarde de la carte
 

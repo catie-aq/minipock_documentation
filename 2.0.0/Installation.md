@@ -1,6 +1,6 @@
 ---
 title: Installation
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 ## Prérequis 📦
@@ -21,6 +21,38 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
+<TabItem value="docker" label="Docker 🐳">
+
+```shell
+git clone git@github.com:catie-aq/minipock.git
+cd minipock
+```
+
+En utilisant [`devcontainer`](https://code.visualstudio.com/docs/remote/containers) ouvrez le dossier `minipock` dans Visual Studio Code et exécutez la commande VSCode `Dev Containers: Reopen in Container`.
+
+En utlisant docker, exécutez la commande suivante :
+
+```shell
+cd .devcontainer
+docker build -t minipock .
+```
+
+```shell
+cd ..
+docker run -it -e DISPLAY=${DISPLAY} -e DEBUG=1 -e ROS_DOMAIN_ID=10 --network=host --privileged -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -v .:/workspaces/minipock/ minipock /bin/bash
+```
+
+Une fois dans le container, exécutez les commandes suivantes :
+
+```shell
+cd /workspaces/minipock
+source /opt/ros/humble/setup.bash
+source /workspaces/minipock/install/setup.bash
+colcon build --merge-install
+```
+
+</TabItem>
+
 <TabItem value="standalone" label="Standalone 🖥" default>
 Créér un workspace ROS2 et cloner les dépôts MiniPock
 
@@ -51,50 +83,7 @@ source install/setup.bash
 
 </TabItem>
 
-<TabItem value="docker" label="Docker 🐳">
-
-```shell
-git clone git@github.com:catie-aq/minipock.git
-cd minipock
-```
-
-En utilisant [`devcontainer`](https://code.visualstudio.com/docs/remote/containers) ouvrez le dossier `minipock` dans Visual Studio Code et exécutez la commande VSCode `Dev Containers: Reopen in Container`.
-
-En utlisant docker, exécutez la commande suivante :
-
-```shell
-cd .devcontainer
-docker build -t minipock .
-```
-
-```shell
-cd ..
-docker run -it -e DISPLAY=${DISPLAY} -e DEBUG=1 -e ROS_DOMAIN_ID=10 --network=host --privileged -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -v .:/workspaces/minipock/ minipock /bin/bash
-```
-
-Une fois dans le container, exécutez les commandes suivantes :
-
-```shell
-cd /workspaces/minipock
-source /opt/ros/humble/setup.bash
-source /workspaces/minipock/install/setup.bash
-colcon build --symlink-install --merge-install
-```
-
-</TabItem>
 </Tabs>
-
-:::info
-
-Une image docker peut être utilisée pour lancer l’agent Micro-ROS (debug et tests)
-
-Documentation officielle : [https://micro.ros.org/docs/tutorials/core/first_application_rtos/zephyr/](https://micro.ros.org/docs/tutorials/core/first_application_rtos/zephyr/)
-
-```bash
-docker run -it --rm --env ROS_DOMAIN_ID=10 -v /dev:/dev --privileged --net=host microros/micro-ros-agent:humble udp4 --port 8888
-```
-
-:::
 
 ## Flasher le MiniPock 🚀
 
@@ -153,3 +142,4 @@ mbed deploy
 mbed compile
 sixtron flash
 ```
+

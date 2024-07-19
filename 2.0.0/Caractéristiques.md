@@ -1,6 +1,6 @@
 ---
 title: Caractéristiques
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 
@@ -20,4 +20,4 @@ La base différentiel prévoit l’emplacement pour 2 stack 6TRON (full size) do
 
 ## Composants
 
-![image](../../img/minipock.drawio.png)
+![image](../img/minipock.drawio.png)

@@ -1,6 +1,6 @@
 ---
 title: Simulation
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 
@@ -31,7 +31,7 @@ Lancez ensuite la simulation
 ros2 launch minipock_gz spawn.launch.py
 ```
 
-![image](../../img/161003219.png)
+![image](../img/161003219.png)
 
 Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation) pour utiliser le MiniPock.
 
@@ -54,7 +54,7 @@ Les paramètres optionnels:
 
 **Pour une utiisation couplée avec la navigation, mettre *use_sim_time* à *true***
 
-![](../../img/multi_robot/multi_minipock.png)
+![](../img/multi_robot/multi_minipock.png)
 
 </TabItem>
 

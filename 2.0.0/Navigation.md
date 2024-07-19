@@ -1,6 +1,6 @@
 ---
 title: Navigation
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 
@@ -71,7 +71,7 @@ L'estimation initiale de la pose doit être effectuée avant de lancer la naviga
   - La racine de la flèche correspond aux coordonnées x, y de la destination, et l'angle θ est déterminé par l'orientation de la flèche.
   - Dès que x, y, θ sont définis, TurtleBot3 commence immédiatement à se déplacer vers la destination.
 
-![image](../../img/1887772889.png)
+![image](../img/1887772889.png)
 
 ## Paramétrage
 
