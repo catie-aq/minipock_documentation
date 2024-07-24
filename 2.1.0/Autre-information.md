@@ -1,6 +1,6 @@
 ---
-title: Description
-sidebar_position: 0
+title: Autre information
+sidebar_position: 15
 ---
 
 :::danger
@@ -13,7 +13,7 @@ Ce package contient les fichiers de description du robot MiniPock au format URDF
 des modèles. Le dépôt n'est pas lié à un simulateur spécifique, mais il est conçu pour fonctionner avec Gazebo Sim
 Garden et ROS 2 Humble.
 
-## Installation {#08e143b9c5d7456fb466bb4b35bdddeb}
+## Installation
 
 ```bash
 cd <your_ros2_workspace>
@@ -26,13 +26,13 @@ Modifiez votre `.bashrc` pour indiquer à Gazebo où trouver les modèles.
 export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH~/[your colcon workspace]/install/share
 ```
 
-## Utilisation {#9c978cc4001649c78868b66d980843ce}
+## Utilisation
 
 ```bash
 ros2 launch minipock_gz spawn.launch.py
 ```
 
-## Fichier URDF {#925a772d7e234692b16fb9b85613fa99}
+## Fichier URDF
 
 La génération du modèle se fait via la définition d’un `URDF` dont le point d’entrée
 est [minipock.urdf.xacro](https://github.com/catie-aq/minipock_description/blob/main/urdf/minipock.urdf.xacro) sa
@@ -44,7 +44,7 @@ package [https://github.com/catie-aq/minipock_description/blob/19d8f223b17d1fa1e
 Les pièces d’origines servant à la construction sont disponibles
 sur [OnShape](https://cad.onshape.com/documents/33cae3bcf76fa1a7bad5518d/w/291d81df1473dfe37dbb5dbf/e/d2e6f80356159bebf1722dda)
 
-## Robot différentiel {#9dbc1dc2a65b485f9306a0484bfcd4a6}
+## Robot différentiel
 
 La base définie
 dans [minipock.urdf.xacro](https://github.com/catie-aq/minipock_description/blob/main/urdf/minipock.urdf.xacro) possède
@@ -68,7 +68,7 @@ plugin [gz-sim-diff-drive-system](https://gazebosim.org/api/sim/8/classgz_1_1sim
 </plugin>
 ```
 
-## Lidar LDS 01 {#f36939c09219465f8514d529b201d58c}
+## Lidar LDS 01
 
 - Le capteur de distance laser 360 LDS-01 est un scanner laser 2D capable de détecter sur 360 degrés qui recueille un
 ensemble de données autour du robot à utiliser pour le SLAM (Simultaneous Localization and Mapping) et la navigation.

@@ -1,6 +1,6 @@
 ---
 title: Cartographer
-sidebar_position: 3
+sidebar_position: 11
 ---
 
 Ce package fournit l'implémentation de la stack de navigation 2 sur le robot MiniPock.

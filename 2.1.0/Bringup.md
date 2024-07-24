@@ -1,6 +1,6 @@
 ---
 title: Bringup
-sidebar_position: 5
+sidebar_position: 12
 ---
 
 Ce package fournit l'implémentation du Bringup de la plateforme Minipock.
