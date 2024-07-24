@@ -92,8 +92,8 @@ puis de lancer le launch file de navigation:
 ```shell
 ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_time:=true
 ```
-</TabItem>
 
+</TabItem>
 </Tabs>
 
 ## Configuration

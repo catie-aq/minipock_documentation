@@ -40,6 +40,7 @@ Il est possible de **lancer navigation et localisation en forçant le démarrage
 ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true nb_robots:=nb_robots robot_name:=robot_name
 ```
 Les paramètres optionnels:
+
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
 - **start_rviz** (bool): Démarrage automatique de rviz. Par défaut ***true***.
@@ -81,7 +82,7 @@ ___
 
 Ce package fournit l'implémentation de la stack de navigation 2 sur le robot MiniPock.
 
-## Installation {#79d64bd3aaf042feb01d16e8000f95ab}
+## Installation
 
 Pour installer ce package, assurez-vous que votre workspace ROS est correctement configuré.
 
@@ -90,12 +91,9 @@ cd <your_ros2_workspace>
 colcon build --packages-select minipock_navigation2
 ```
 
-## Utilisation en simulation {#edcb6ce69a71408185ba76fae1ebb038}
+## Utilisation en simulation
 
 Pour utiliser ce package il est nécessaire de lancer la simulation gazebo du robot MiniPock installée via le package [minipock_gz](https://github.com/catie-aq/minipock_gz) en utilisant le launch file suivant:
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs>
 <TabItem value="simulation" label="Simulation">
@@ -124,6 +122,7 @@ Puis il est possible de **lancer navigation et localisation en forçant le déma
 ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true nb_robots:=nb_robots robot_name:=robot_name
 ```
 Les paramètres optionnels:
+
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
 - **start_rviz** (bool): Démarrage automatique de rviz. Par défaut ***true***.
@@ -136,7 +135,7 @@ Les paramètres optionnels:
 
 </Tabs>
 
-## Configuration {#efdc531954184e9d9f35e9c06f2cc5d0}
+## Configuration
 
 La configuration de la stack de navigation se fait via le
 fichier [minipock.yaml](https://github.com/catie-aq/minipock_navigation/blob/main/minipock_navigation2/param/minipock.yaml)

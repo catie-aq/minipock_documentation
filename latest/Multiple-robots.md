@@ -137,7 +137,7 @@ ___
 
 ### Architecture globale
 
-![](../../img/multi_robot/architecture_globale_minipock_gray.drawio.png)
+![](../img/multi_robot/architecture_globale_minipock_gray.drawio.png)
 
 ### Simulation Multi Robots
 
@@ -149,7 +149,7 @@ Afin d'obtenir des robots différents sur une même simulation il faut d'abord a
 
 Il faut commencer par **changer la manière de décrire un robot**. Le *namespace* isole les contextes des robots en leur permettant de garder les mêmes noms de composants, *topics*, services, etc.
 
-![](../../img/multi_robot/isolation_description.drawio.png)
+![](../img/multi_robot/isolation_description.drawio.png)
 
 **Pour ce projet le "/" entre le namespace et les noms des entités sera inclut par défaut à des endroits clés afin de permettre qu'un *namespace vide* utilisé dans la description marche.**
 
@@ -177,22 +177,22 @@ Ce namespace doit être **propagé aux différents fichiers de description**, ce
 
 * Utilisation dans le fichier des moteurs ([motor_stepper_v2.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/motor_stepper_v2.xacro)):
 
-  ```xml
-    <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
-        <xacro:macro name="motor_stepper"
-            params="namespace:=minipock/ name:=stepper_left x:=0.0 y:=0.0 z:=0.0
-                            R:=0.0 P:=0.0 Y:=0.0 side:=1">
-            <link name="${namespace}${name}_base_link">
-            [...]
-            </link>
-            <joint name="${name}_joint" type="fixed">
-                <parent link="${namespace}base_link" />
-                <child link="${namespace}${name}_base_link" />
-                <origin xyz="${x} ${y} ${z}" rpy="${R} ${P} ${Y}" />
-            </joint>
-        </xacro:macro>
-    </robot>
-    ```
+```xml
+<robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="motor_stepper"
+        params="namespace:=minipock/ name:=stepper_left x:=0.0 y:=0.0 z:=0.0
+                        R:=0.0 P:=0.0 Y:=0.0 side:=1">
+        <link name="${namespace}${name}_base_link">
+        [...]
+        </link>
+        <joint name="${name}_joint" type="fixed">
+            <parent link="${namespace}base_link" />
+            <child link="${namespace}${name}_base_link" />
+            <origin xyz="${x} ${y} ${z}" rpy="${R} ${P} ${Y}" />
+        </joint>
+    </xacro:macro>
+</robot>
+```
 
 > Pour compléter l'isolation des robots,  il était nécessaire d'**ajouter une *coordinate frame*** nommée ***base_footprint*** au dessus de ***base_link***:
 >
@@ -239,20 +239,20 @@ La manière de créer les ***bridges*** doit être adaptée, [la fonction crée 
 
 - Extrait de la fonction *bridge* dans [*spawn_multiple.launch.py*](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_gz/launch/spawn_multiple.launch.py):
 
-    ```python
-    bridges_list = [
-            bridges.clock(),
-        ]
-        for robot in robots:
-            bridges_list.extend([
-                bridges.pose(model_name=robot['name']),
-                bridges.joint_states(model_name=robot['name'], world_name=world_name),
-                bridges.odometry(model_name=robot['name']),
-                bridges.cmd_vel(model_name=robot['name']),
-                bridges.scan_lidar(model_name=robot['name']),
-                bridges.tf(model_name=robot['name']),
-        ])
-    ```
+```python
+bridges_list = [
+        bridges.clock(),
+    ]
+    for robot in robots:
+        bridges_list.extend([
+            bridges.pose(model_name=robot['name']),
+            bridges.joint_states(model_name=robot['name'], world_name=world_name),
+            bridges.odometry(model_name=robot['name']),
+            bridges.cmd_vel(model_name=robot['name']),
+            bridges.scan_lidar(model_name=robot['name']),
+            bridges.tf(model_name=robot['name']),
+    ])
+```
 
 Il faut aussi adapter la classe qui s'occupe des *bridges* en vérifiant la correspondance entre les *paths* de cette classe et ceux générés par gazebo avec :
 
@@ -321,7 +321,7 @@ Les paramètres optionnels:
 
 **Pour une utiisation couplée avec la navigation, mettre *use_sim_time* à *true***
 
-![](../../img/multi_robot/multi_minipock.png)
+![](../img/multi_robot/multi_minipock.png)
 
 #### Teleop
 
@@ -329,10 +329,10 @@ Afin de contrôler les différents robots présents en simulation, il était pos
 
 - Exemple avec le namespace *minipock0*:
 
-    ```bash
-    ros2 run minipock_teleop teleop_keyboard --ros-args --
-    remap cmd_vel:=/minipock0/cmd_vel
-    ```
+```bash
+ros2 run minipock_teleop teleop_keyboard --ros-args --
+remap cmd_vel:=/minipock0/cmd_vel
+```
 
 Mais pour simplifier ce choix du *namespace* (et donc du robot), cette feature a été implémenté dans la classe [TeleopController](https://github.com/catie-aq/minipock/blob/33cf1da845582200fdd0e30b94e6fdd0f74b3609/minipock_navigation/minipock_teleop/minipock_teleop/teleop_keyboard.py#L68-L79).
 
@@ -371,7 +371,7 @@ Exemple des changements à effectuer pour l'[*AMCL*](https://github.com/catie-aq
 
 On obtient alors des transformées qui sont reliées par la même carte:
 
-![](../../img/multi_robot/tf_tree_two_minipock_map.drawio.png)
+![](../img/multi_robot/tf_tree_two_minipock_map.drawio.png)
 
 ### Lancement des modules de navigation et localisation
 

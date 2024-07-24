@@ -5,11 +5,11 @@ sidebar_position: 13
 
 
 
-## Architecture {#7e03927da8fc45818ec435f2b3b69272}
+## Architecture
 
-![image1](../../img/1044571662.png)
+![image1](../img/1044571662.png)
 
-## Interface {#cf465c6ecfe1442ca910367aada66ae0}
+## Interface
 
 - La communication entre les nœuds ROS2 et la stack applicative utilise les topics ROS.
 - La communication entre la stack applicative et le RBDC utilise les messages protobuf.
@@ -27,7 +27,7 @@ flowchart LR
 
 ```
 
-## Communication µROS - ROS2 {#3a7cbeeb6d0d4894808da1fd514ed1cb}
+## Communication µROS - ROS2
 
 ```mermaid
 flowchart LR
@@ -46,14 +46,14 @@ RPi --/scan LaserScan--> PlannerServer
 RPi --/tf TfMsg-->PlannerServer
 ```
 
-### Liste des topics {#4ccd31d432fc4e44a7702ece040880b1}
+### Liste des topics
 
 | Topic    | Type     |
 | -------- | -------- |
 | /cmd_vel | Twist    |
 | /odom    | odometry |
 
-### Communication micro-ROS ↔RBDC | Protocol Buffer {#fb6e5ec426084f5bae3dbbebe04b5d5c}
+### Communication micro-ROS ↔RBDC | Protocol Buffer
 
 ```protobuf
 syntax = "proto3";
