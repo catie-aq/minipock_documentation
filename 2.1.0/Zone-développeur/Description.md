@@ -3,6 +3,12 @@ title: Description
 sidebar_position: 0
 ---
 
+:::danger
+
+To be updated
+
+:::
+
 Ce package contient les fichiers de description du robot MiniPock au format URDF utilisant `xacro` pour la génération
 des modèles. Le dépôt n'est pas lié à un simulateur spécifique, mais il est conçu pour fonctionner avec Gazebo Sim
 Garden et ROS 2 Humble.

@@ -3,6 +3,12 @@ title: Gz Sim
 sidebar_position: 1
 ---
 
+:::danger
+
+To be updated
+
+:::
+
 Ensemble de ressources permettant de configurer l'environnement de simulation Gazebo ainsi que les plugins ROS
 nécessaires dans le cadre du projet MiniPock.
 Ce package configure par ailleurs les différents bridges nécessaires pour la communication entre ROS 2 Humble et Gazebo
