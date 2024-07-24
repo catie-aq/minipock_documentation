@@ -23,7 +23,7 @@ Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut
 <Tabs>
 <TabItem value="smmple robot" label="Version simple robot" default>
 
-### Version simple robot
+### Robot unique
 
 Lancez ensuite la simulation
 
@@ -39,14 +39,16 @@ Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation
 
 <TabItem value="multi robot" label="Version supportant le multi-robots">
 
-### Version supportant le multi-robots
+### Multi-robots
 
 Cette version permet de créer et afficher le nombre souhaité de minipocks.
 
 ```shell
 ros2 launch minipock_gz spawn_multiple.launch.py use_sim_time:=true opt_param_1:=my_param
 ```
+
 Les paramètres optionnels:
+
 - **use_sim_time** (bool): Pour utiliser le temps de la simulation par défaut
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.

@@ -3,9 +3,11 @@ title: Multiple Robots
 sidebar_position: 8
 ---
 
-:::danger
+Ce guide explique comment utiliser plusieurs robots MiniPock dans une même simulation.
 
-Work in progress
+:::info
+
+La gestion de plusieurs robots est possible grâce à l'utilisation de namespaces. Les namespaces permettent de séparer les topics, services et paramètres de chaque robot. Elle est disponible (pour le moment) uniquement en simulation
 
 :::
 
@@ -20,7 +22,9 @@ Cette version permet de créer et afficher le nombre souhaité de minipocks.
 ```shell
 ros2 launch minipock_gz spawn_multiple.launch.py use_sim_time:=true opt_param_1:=my_param
 ```
+
 Les paramètres optionnels:
+
 - **use_sim_time** (bool): Pour utiliser le temps de la simulation par défaut
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
@@ -35,9 +39,9 @@ Les paramètres optionnels:
 ```bash
 ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
 ```
+
 -> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*
 -> *Dans le cas où le topic cmd_vel demandé n'existerait pas, la liste des topics cmd_vel existants sera donnée*
-
 
 ## [Navigation](Navigation.md)
 
@@ -46,7 +50,9 @@ Il est possible de **lancer navigation et localisation en forçant le démarrage
 ```bash
 ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true nb_robots:=nb_robots robot_name:=robot_name
 ```
+
 Les paramètres optionnels:
+
 - **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
 - **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
 - **start_rviz** (bool): Démarrage automatique de rviz. Par défaut ***true***.
@@ -55,6 +61,5 @@ Les paramètres optionnels:
 - **autostart** (bool): Démarrage automatique des éléments de navigation. Par défaut ***false***.
 - **use_composition** (bool): Les nodes sont lancés dans des containers afin d'optimiser la mémoire et les ressources CPU utilisées. Par défaut ***true***.
 - **use_respawn** (bool): Relance les nodes qui plantent. À utiliser si la composition est désactivée. Par défaut: ***false***.
-
 
 Une fenêtre rviz se lancera automatiquement sans nécessité de startup manuel.

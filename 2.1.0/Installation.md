@@ -21,10 +21,10 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-<TabItem value="docker" label="Docker 🐳">
+<TabItem value="docker" label="Docker 🐳" default>
 
 ```shell
-git clone git@github.com:catie-aq/minipock.git
+git clone --branch 2.1.0 git@github.com:catie-aq/minipock.git
 cd minipock
 ```
 
@@ -53,7 +53,7 @@ colcon build --merge-install
 
 </TabItem>
 
-<TabItem value="standalone" label="Standalone 🖥" default>
+<TabItem value="standalone" label="Standalone 🖥">
 Créér un workspace ROS2 et cloner les dépôts MiniPock
 
 ```shell
