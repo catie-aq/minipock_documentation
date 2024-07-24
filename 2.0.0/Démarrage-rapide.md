@@ -19,30 +19,9 @@ Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut
 
 Lancez ensuite le noeud de téléopération
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="standalone" label="Robot Unique" default>
-
 ```shell
 ros2 run minipock_teleop teleop_keyboard
 ```
-
-</TabItem>
-
-<TabItem value="multiple" label="Plusieurs robots">
-
-```bash
-ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
-```
--> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*
--> *Dans le cas où le topic cmd_vel demandé n'existerait pas, la liste des topics cmd_vel existants sera donnée*
-
-
-</TabItem>
-
-</Tabs>
 
 Suivez ensuite les indications du terminal
 

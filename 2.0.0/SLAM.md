@@ -28,24 +28,9 @@ ros2 launch minipock_cartographer cartographer.launch.py
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<Tabs>
-<TabItem value="standalone" label="Robot Unique" default>
-
 ```shell
 ros2 run minipock_teleop teleop_keyboard
 ```
-
-</TabItem>
-
-<TabItem value="multiple" label="Plusieurs robots">
-
-```shell
-ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
-```
-
-</TabItem>
-
-</Tabs>
 
 ![image](../img/275229440.png)
 
