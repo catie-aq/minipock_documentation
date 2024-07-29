@@ -5,7 +5,11 @@ sidebar_position: 14
 
 ## Aperçu
 
-![Architecture](../img/987470338.jpg)
+L'electronique de la plateforme 6TRON est basée sur les cartes 6TRON et la stack applicative. Elle est composée de deux parties :
+- La stack applicative qui gère la navigation et la communication avec la stack moteur.
+- La stack moteur qui gère les moteurs.
+
+![Architecture](../img/general_architecture.png)
 
 ## Stack applicative
 
