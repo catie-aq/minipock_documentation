@@ -16,11 +16,26 @@ colcon build --packages-select minipock_cartographer
 
 ## Utilisation en simulation
 
-Pour utiliser ce package il est nécessaire de lancer la simulation gazebo du robot MiniPock installée via le
-package [minipock_gz](https://github.com/catie-aq/minipock_gz) en utilisant le launch file suivant:
+Pour utiliser ce package il est nécessaire de lancer la simulation gazebo du robot MiniPock :
+
+:::danger
+
+Pour fonctionner le fichier de configuration de la flotte `minipock/minipocks.yaml` doit être le suivant :
+
+```yaml
+namespace: minipock_
+bringup: false
+use_sim_time: true
+fleet:
+  "0":
+    mode: differential
+    position: null
+```
+
+:::
 
 ```bash
-ros2 launch minipock_gz minipock.launch.py
+ros2 launch minipock_gz spawn.launch.py
 ```
 
 puis de lancer cartographer:
