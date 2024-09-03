@@ -13,54 +13,26 @@ Pour lancer la simulation, assurez-vous d'avoir installé [`gz-garden`](https://
 
 :::
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 ## Lancer la simulation
+
+:::info
+Le [fichier de configuration de la flotte de minipock](https://github.com/catie-aq/minipock/blob/d142d3694b96a446592f0b822c336ed1964f9d7f/minipock/minipocks.yaml) doit être complété pour donner des informations pratiques aux différents composants comme la simulation ou la navigation.
+:::
 
 Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
 
-<Tabs>
-<TabItem value="smmple robot" label="Version simple robot" default>
-
-### Robot unique
-
-Lancez ensuite la simulation
-
 ```shell
-ros2 launch minipock_gz spawn.launch.py
-```
-
-![image](../img/161003219.png)
-
-Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation) pour utiliser le MiniPock.
-
-</TabItem>
-
-<TabItem value="multi robot" label="Version supportant le multi-robots">
-
-### Multi-robots
-
-Cette version permet de créer et afficher le nombre souhaité de minipocks.
-
-```shell
-ros2 launch minipock_gz spawn_multiple.launch.py use_sim_time:=true opt_param_1:=my_param
+ros2 launch minipock_gz spawn_multiple.launch.py opt_param_1:=my_param
 ```
 
 Les paramètres optionnels:
 
-- **use_sim_time** (bool): Pour utiliser le temps de la simulation par défaut
-- **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
-- **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
+- **paused** (bool): Pour démarrer la simulation en pause.
 - **world** (string): Nom du monde. Par défaut ***minipock_world***.
-
-**Pour une utiisation couplée avec la navigation, mettre *use_sim_time* à *true***
 
 ![](../img/multi_robot/multi_minipock.png)
 
-</TabItem>
-
-</Tabs>
+Vous pouvez ensuite lancer les autres stacks (téléopération, SLAM, navigation) pour utiliser le MiniPock.
 
 ---
 
