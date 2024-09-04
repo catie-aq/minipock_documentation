@@ -3,11 +3,15 @@ title: Système embarqué
 sidebar_position: 13
 ---
 
+## Aperçu
 
+Le système embarqué MiniPock est composé de deux parties :
+- La stack applicative qui gère la navigation et communique avec la stack de controle moteur. Elle intègre micro-ROS pour la communication avec les nœuds ROS2 et est basée sur Zephyr OS.
+- La stack de controle moteur permet déplacer le robot. Elle intègre le RBDC (Robot Base Driver Control) qui permet de demander un déplacement en x, y, theta.
 
 ## Architecture
 
-![image1](../img/1044571662.png)
+![image1](../img/minipock_architecture_2.1.0.svg)
 
 ## Interface
 
@@ -16,13 +20,11 @@ sidebar_position: 13
 
 ```mermaid
 flowchart LR
-  RO2_nav --WiFi ROS--> µROS_agent
-  subgraph Minipock
-  subgraph RPI
+  RO2_nav --ROS2 msg--> µROS_agent
   µROS_agent
-  end
-  µROS_agent --UART µROS--> app_µROS
- app_µROS --UART Protobuf--> RBDC
+  µROS_agent --[Wi-Fi] µROS msg --> app_µROS
+  subgraph Minipock
+  app_µROS --[UART] Protobuf--> RBDC
   end
 
 ```
@@ -48,10 +50,11 @@ RPi --/tf TfMsg-->PlannerServer
 
 ### Liste des topics
 
-| Topic    | Type     |
-| -------- | -------- |
-| /cmd_vel | Twist    |
-| /odom    | odometry |
+| Topic        | Type        |
+| ------------ | ----------- |
+| /namespace/cmd_vel  | Twist       |
+| /namespace/odom_raw | PoseStamped |
+| /namespace/scan_raw | LaserScan   |
 
 ### Communication micro-ROS ↔RBDC | Protocol Buffer
 
