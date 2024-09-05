@@ -5,18 +5,20 @@ sidebar_position: 14
 
 ## Aperçu
 
-L'electronique de la plateforme 6TRON est basée sur les cartes 6TRON et la stack applicative. Elle est composée de deux parties :
-- La stack applicative qui gère la navigation et la communication avec la stack moteur.
-- La stack moteur qui gère les moteurs.
+L'electronique de la plateforme 6TRON est basée sur les cartes 6TRON.
 
 ![Architecture](../img/general_architecture.png)
 
 ## Stack applicative
 
-Cartes 6TRON :
-- [Zest_Carrier_Extension](https://6tron.io/zest/zest_carrier_extension_1_0_0)
-- [Zest_Core_STM32L4A6RG](https://6tron.io/zest_core/zest_core_stm32l4a6rg_3_1_0)
+La stack applicative est basée sur les cartes 6TRON suivantes :
+- [Zest_Core_STM32H753ZI](https://6tron.io/zest_core/zest_core_stm32h753zi_2_0_0)
 - [Zest_Test_Prototyping](https://6tron.io/zest/zest_test_prototyping_1_0_0)
+- [Zest_Radio_WiFi](https://6tron.io/zest/zest_radio_wifi_1_0_0)
+
+### Pinout
+
+![Pinout](../img/stack_applicative_pinout_2.1.0.svg)
 
 ### LiDAR
 
