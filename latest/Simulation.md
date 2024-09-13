@@ -13,7 +13,7 @@ Pour lancer la simulation, assurez-vous d'avoir installé [`gz-garden`](https://
 
 :::
 
-## Lancer la simulation
+## Lancer la simulation 
 
 :::info
 Le [fichier de configuration de la flotte de minipock](https://github.com/catie-aq/minipock/blob/d142d3694b96a446592f0b822c336ed1964f9d7f/minipock/minipocks.yaml) doit être complété pour donner des informations pratiques aux différents composants comme la simulation ou la navigation.
@@ -22,7 +22,7 @@ Le [fichier de configuration de la flotte de minipock](https://github.com/catie-
 Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
 
 ```shell
-ros2 launch minipock_gz spawn_multiple.launch.py opt_param_1:=my_param
+ros2 launch minipock_gz spawn.launch.py opt_param_1:=my_param
 ```
 
 Les paramètres optionnels:
