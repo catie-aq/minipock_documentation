@@ -125,10 +125,13 @@ suivre [tuto pour savoir comment ajouter nouvelle tâche](https://osrf.github.io
 **Discussion autour des tâches:**
 
 Actuellement elles sont très restreintes et ne permettent pas beaucoup de liberté, ils sont en train d'implémenter de quoi créer des tâches via des graphes, avec GUI etc:
-<https://github.com/open-rmf/rmf/discussions/169>
+
+[169](https://github.com/open-rmf/rmf/discussions/169)
 
 Présentation de leurs objectifs/technos/etc:
-<https://docs.google.com/presentation/d/1XE4A_72Y0qLHpkoXuEI4dEKK3Jf0zM7cgX1yj1XTEJg/edit#slide=id.g2d18c1126ba_0_190>
+
+[Discussion sur les tâches](https://docs.google.com/presentation/d/1XE4A_72Y0qLHpkoXuEI4dEKK3Jf0zM7cgX1yj1XTEJg/edit#slide=id.g2d18c1126ba_0_190)
+
 :::
 
 ## Quelques détails
