@@ -50,7 +50,8 @@ Afin d'ajouter un robot sur un *vertex* il est sûrement nécessaire de l'ajoute
 L'option *crowd_sim* permettant d'ajouter des personnes qui peuvent se déplacer n'a pas été testée.
 
 A partir d'un plan quelconque, il est possible de créer une pièce. En se basant sur une image il est possible de construire des murs, des sols, des étages, etc. Le plus intéressant étant de construire des lignes de déplacement que les robots pourront ensuite emprunter. Aucune documentation sur le bouton "zone de mission" n'a été trouvée.
-<div style="text-align: center;"> <img src="../img/logiciel_de_mission/traffic_editor_empty_room.png" alt="Image" style="width: 90%;"/> </div>
+
+![empty_room](../img/logiciel_de_mission/traffic_editor_empty_room.png)
 
 Une fois la carte éditée, les *building map tools* peuvent être utilisés pour créer des fichiers de navigation, un fichier *world* pour gazebo et les dossiers des modèles nécessaires à la génération du monde.
 Pour ces différentes fonctionnalités, les instructions sont fournies dans le [README du dépôt traffic editor](https://github.com/open-rmf/rmf_traffic_editor).
@@ -100,7 +101,7 @@ sudo apt-get install python3-pip
 pip install nudged
 ```
 
-<div style="text-align: center;"> <img src="../img/logiciel_de_mission/navigation_rviz_rmf_fleetadapter_minipock.png" alt="Image" style="width: 70%;"/> </div>
+![empty_room_rmf](../img/logiciel_de_mission/navigation_rviz_rmf_fleetadapter_minipock.png)
 
 :::info
 Un seul robot est préconfiguré dans rviz, il faut rajouter les autres à la main
