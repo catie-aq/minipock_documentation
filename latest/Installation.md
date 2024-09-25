@@ -3,13 +3,7 @@ title: Installation
 sidebar_position: 3
 ---
 
-## Prérequis 📦
-
-- Installer [Ubuntu 22.04 LTS](https://ubuntu.com/download/raspberry-pi)
-- Installer [ROS2 humble](https://docs.ros.org/en/humble/Installation.html)
-- Installer docker [optionnel]
-
-## Installation de la Stack Robotique | ROS2 🤖
+## Installation PC
 
 :::warning
 
@@ -24,43 +18,42 @@ import TabItem from '@theme/TabItem';
 <TabItem value="docker" label="Docker 🐳" default>
 
 ```shell
-git clone --branch 2.1.0 git@github.com:catie-aq/minipock.git
+git clone -b 2.1.0 git@github.com:catie-aq/minipock.git
 cd minipock
 ```
 
-En utilisant [`devcontainer`](https://code.visualstudio.com/docs/remote/containers) ouvrez le dossier `minipock` dans Visual Studio Code et exécutez la commande VSCode `Dev Containers: Reopen in Container`.
-
-En utlisant docker, exécutez la commande suivante :
+Exécutez la commande suivante pour démarrer le container docker depuis le dossier `minipock`
 
 ```shell
-cd .devcontainer
-docker build -t minipock .
+docker compose run minipock-real # pour le robot réel
+docker compose run minipock-simulation # pour la simulation
 ```
 
-```shell
-cd ..
-docker run -it -e DISPLAY=${DISPLAY} -e DEBUG=1 -e ROS_DOMAIN_ID=10 --network=host --privileged -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -v .:/workspaces/minipock/ minipock /bin/bash
-```
-
-Une fois dans le container, exécutez les commandes suivantes :
+Pour compiler le workspace ROS2, exécutez les commandes suivantes
 
 ```shell
 cd /workspaces/minipock
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source /workspaces/minipock/install/setup.bash
 colcon build --merge-install
 ```
 
 </TabItem>
 
-<TabItem value="standalone" label="Standalone 🖥">
+<TabItem value="standalone" label="Standalone 🖥️">
+
+Prérequis 📦
+
+- Installer [Ubuntu 22.04 LTS](https://ubuntu.com/download/raspberry-pi)
+- Installer [ROS2 Jazzy](https://docs.ros.org/en/humble/Installation.html)
+  
 Créér un workspace ROS2 et cloner les dépôts MiniPock
 
 ```shell
 mkdir -p ~/colcon_ws/src
 cd ~/colcon_ws/src
-git clone git@github.com:catie-aq/minipock.git
-git clone -b humble https://github.com/micro-ROS/micro_ros_setup.git
+git clone -b 2.1.0 git@github.com:catie-aq/minipock.git
+git clone -b jazzy https://github.com/micro-ROS/micro_ros_setup.git
 ```
 
 Mettre à jour les dépendances avec `rosdep`
@@ -85,7 +78,7 @@ source install/setup.bash
 
 </Tabs>
 
-## Flasher le MiniPock 🚀
+## Installation MiniPock 🚀
 
 ### Installation de la Stack Applicative | Micro ROS 🪁
 
@@ -142,4 +135,3 @@ mbed deploy
 mbed compile
 sixtron flash
 ```
-
