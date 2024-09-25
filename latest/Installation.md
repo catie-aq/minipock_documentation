@@ -22,14 +22,14 @@ git clone -b 2.1.0 git@github.com:catie-aq/minipock.git
 cd minipock
 ```
 
-Exécutez la commande suivante pour démarrer le container docker depuis le dossier `minipock`
+Exécuter la commande suivante pour démarrer le container docker depuis le dossier `minipock`
 
 ```shell
 docker compose run minipock-real # pour le robot réel
 docker compose run minipock-simulation # pour la simulation
 ```
 
-Pour compiler le workspace ROS2, exécutez les commandes suivantes
+Exécuter les commandes suivantes pour compiler le workspace ROS2
 
 ```shell
 cd /workspaces/minipock
@@ -47,7 +47,7 @@ Prérequis 📦
 - Installer [Ubuntu 22.04 LTS](https://ubuntu.com/download/raspberry-pi)
 - Installer [ROS2 Jazzy](https://docs.ros.org/en/humble/Installation.html)
   
-Créér un workspace ROS2 et cloner les dépôts MiniPock
+Créer un workspace ROS2 et cloner les dépôts MiniPock et micro-ROS
 
 ```shell
 mkdir -p ~/colcon_ws/src
@@ -88,21 +88,19 @@ Module officiel µROS : [https://github.com/micro-ROS/micro_ros_zephyr_module.gi
 
 :::
 
-L’application de la stack applicative est basée sous Zephyr OS. L’application doit exposer un nœud ROS afin de pourvoir interagir avec un environnement ROS2.
-
 - Installer les [outils Zephyr OS](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)
 - Initialiser le workspace Zephyr
 
 ```bash
-west init -m https://github.com/catie-aq/zephyr_minipock minipock
+west init -m https://github.com/catie-aq/zephyr_minipock --mr v2.1.0 minipock
 cd minipock
 west update
 ```
 
-- Compiler l’application de base
+- Compiler l’application
 
 ```bash
-west build -b zest_core_stm32l4a6rg app/base-application
+west build -b zest_core_stm32h753zi app/base-application
 ```
 
 - Flasher la carte
@@ -116,7 +114,7 @@ west flash
 L’application de contrôle moteur est basée sous Mbed OS.
 
 - Installer les [outils Mbed OS](https://6tron.catie-lab.net/ressources_logicielles/mbed/)
-- Téléchargement l’application
+- Télécharger le code source
 
 ```bash
 git clone https://github.com/catie-aq/minipock_mbed-rbdc.git
