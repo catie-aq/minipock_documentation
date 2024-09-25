@@ -1,70 +1,6 @@
 ---
-title: Multiple Robots
-sidebar_position: 8
+title: Intégration de robots multiples
 ---
-
-Ce guide explique comment utiliser plusieurs robots MiniPock dans une même simulation.
-
-:::info
-
-La gestion de plusieurs robots est possible grâce à l'utilisation de namespaces. Les namespaces permettent de séparer les topics, services et paramètres de chaque robot.
-
-:::
-
-L'utilisation de plusieurs robots au sein d'une même simulation reprend la logique des différents guides précedents: l'[**installation**](Installation.md), le [**démarrage rapide**](Démarrage-rapide.md), la [**navigation**](Navigation.md) et la [**simulation**](Simulation.md).
-
-Cependant les configurations changent et des fichiers de lancement adaptés sont à utiliser pour la simuation et la navigation.
-
-## [Simulation](Simulation.md)
-
-:::info
-Le [fichier de configuration de la flotte de minipock](https://github.com/catie-aq/minipock/blob/d142d3694b96a446592f0b822c336ed1964f9d7f/minipock/minipocks.yaml) doit être complété pour donner des informations pratiques aux différents composants comme la simulation ou la navigation.
-:::
-
-Cette version permet de créer et afficher le nombre souhaité de minipocks:
-
-```shell
-ros2 launch minipock_gz spawn.launch.py opt_param_1:=my_param
-```
-
-Les paramètres optionnels:
-
-- **world** (string): Nom du monde. Par défaut ***minipock_world***.
-- ***paused*** (bool): True to start the simulation paused. Par défaut ***False***.
-
-![](../img/multi_robot/multi_minipock.png)
-
-## Téléopération
-
-```bash
-ros2 run minipock_teleop teleop_keyboard --ros-args -p namespace:=robot_namespace/
-```
-
--> *En cas de mauvais namespace demandé la liste des namespaces existants sera donnée*
--> *Dans le cas où le topic cmd_vel demandé n'existerait pas, la liste des topics cmd_vel existants sera donnée*
-
-## [Navigation](Navigation.md)
-
-:::info
-Le [fichier de configuration de la flotte de minipock](https://github.com/catie-aq/minipock/blob/d142d3694b96a446592f0b822c336ed1964f9d7f/minipock/minipocks.yaml) doit être complété pour donner des informations pratiques aux différents composants comme la simulation ou la navigation.
-:::
-
-Pour lancer la navigation:
-
-```bash
-ros2 launch minipock_navigation2 navigation2.launch.py
-```
-
-Les paramètres optionnels:
-
-- **start_rviz** (bool): Démarrage automatique de rviz. Par défaut ***true***.
-- **autostart** (bool): Démarrage automatique des éléments de navigation. Par défaut ***True***.
-- **use_composition** (bool): Les nodes sont lancés dans des containers afin d'optimiser la mémoire et les ressources CPU utilisées. Par défaut ***True***.
-- **use_respawn** (bool): Relance les nodes qui plantent. À utiliser si la composition est désactivée. Par défaut: ***false***.
-
-Une fenêtre rviz se lancera automatiquement sans nécessité de startup manuel.
-
-___
 
 ## Projet d'entraînement Turtlebot3
 
@@ -167,6 +103,7 @@ Extrait du fichier principal de description([minipock_v2.urdf.xacro](https://git
 ```
 
 Ce namespace doit être **propagé aux différents fichiers de description**, cela sera montré dans les **extraits servant d'exemple ci-après**:
+
 - Appel du fichier de description *motor_stepper* dans le fichier principal ([minipock_v2.urdf.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/minipock_v2.urdf.xacro)):
 
     ```xml
@@ -175,7 +112,7 @@ Ce namespace doit être **propagé aux différents fichiers de description**, ce
                         Y="0.0" side="1"/>
     ```
 
-* Utilisation dans le fichier des moteurs ([motor_stepper_v2.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/motor_stepper_v2.xacro)):
+- Utilisation dans le fichier des moteurs ([motor_stepper_v2.xacro](https://github.com/catie-aq/minipock/blob/2a5dde2bdabffc274674ef64b8ad0e4328c02b80/minipock_description/urdf/motor_stepper_v2.xacro)):
 
 ```xml
 <robot name="minipock" xmlns:xacro="http://ros.org/wiki/xacro">

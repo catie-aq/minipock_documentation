@@ -1,6 +1,5 @@
 ---
 title: Installation
-sidebar_position: 3
 ---
 
 ## Installation PC
@@ -46,7 +45,7 @@ Prérequis 📦
 
 - Installer [Ubuntu 22.04 LTS](https://ubuntu.com/download/raspberry-pi)
 - Installer [ROS2 Jazzy](https://docs.ros.org/en/humble/Installation.html)
-  
+
 Créer un workspace ROS2 et cloner les dépôts MiniPock et micro-ROS
 
 ```shell

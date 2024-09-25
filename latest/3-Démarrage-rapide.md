@@ -1,6 +1,5 @@
 ---
 title: Démarrage rapide
-sidebar_position: 4
 ---
 
 :::warning

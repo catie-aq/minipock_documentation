@@ -1,6 +1,5 @@
 ---
 title: SLAM
-sidebar_position: 5
 ---
 
 Le SLAM (Simultaneous Localization and Mapping) est une technique permettant de dessiner une carte en estimant la position actuelle dans un espace arbitraire.
@@ -42,3 +41,33 @@ ros2 run nav2_map_server map_saver_cli -f ~/map
 L'option `-f` spécifie l'emplacement du dossier et le nom du fichier dans lequel les fichiers doivent être enregistrés.
 
 Avec la commande ci-dessus, map.pgm et map.yaml seront enregistrés dans le dossier personnel.
+
+## API Documentation
+
+### Noeuds
+
+- `/cartographer_node`: Ce noeud est responsable de la construction de la carte du robot MiniPock.
+- `/cartographer_occupancy_grid_node`: Ce noeud est responsable de la publication de la carte de probabilité d'occupation.
+- `rviz2` : Visualisation de la carte en temps réel.
+- `odom_relay` : Relais de l'odométrie de `minipock_0/odom` à `odom` voir [documentation](https://google-cartographer-ros.readthedocs.io/en/latest/configuration.html)
+- `scan_relay` : Relais des scans de `minipock_0/scan` à `scan` voir [documentation](https://google-cartographer-ros.readthedocs.io/en/latest/configuration.html)
+
+### Topics
+
+Publiés par `cartographer_node`:
+
+- `/submap_list`: Ce topic diffuse la liste des submaps.
+- `/trajectory_node_list`: Ce topic publie la liste des trajectoires.
+- `/tf`: Le topic `/tf` publie les transformations entre les différents repères coordonnés dans le robot.
+- `/contraint_list`: Ce topic publie les contraintes entre les différentes trajectoires.
+- `/landmark_poses_list`: Ce topic publie les poses des landmarks.
+- `/scan_matched_points2`: Ce topic publie les points de scan correspondants.
+
+Publiés par `cartographer_occupancy_grid_node`:
+
+- `/map`: Ce topic publie la carte de probabilité d'occupation.
+
+Soucrit par `cartographer_node`:
+
+- `/scan`: Ce topic reçoit les scans du lidar.
+- `/odom`: Ce topic reçoit l'odométrie du robot.
