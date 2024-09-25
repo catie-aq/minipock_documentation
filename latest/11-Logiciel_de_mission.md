@@ -1,5 +1,5 @@
 ---
-title: Logiciel de mission
+title: Planification de missions
 ---
 
 ## Open-RMF

@@ -54,9 +54,6 @@ ros2 launch minipock_bringup bringup.launch.py
 
 Lancez ensuite le noeud de téléopération
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 ```bash
 ros2 run minipock_teleop teleop_fps --ros-args -p namespace:=robot_namespace/
 ```
