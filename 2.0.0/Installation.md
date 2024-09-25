@@ -142,4 +142,3 @@ mbed deploy
 mbed compile
 sixtron flash
 ```
-

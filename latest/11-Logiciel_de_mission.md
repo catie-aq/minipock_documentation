@@ -1,6 +1,5 @@
 ---
 title: Logiciel de mission
-sidebar_position: 9
 ---
 
 ## Open-RMF
@@ -68,7 +67,7 @@ Les fichiers de configuration utiles sont:
 
 - **La configuration de la flotte**: Description des spécificités des robots couvrant par exemple, la taille de leur empreinte, la capacité de leur batterie, les tâches réalisables, les noms des robots et bien d'autres paramètres.
 - **La configuration rviz**: Avec la gestion des plugins *rmf*, ce qui permet de visualiser les tâches.
-  
+
 :::note
 Actuellement, les fichiers de configuration nécessaires au fonctionnement de *rmf* sont inspirés de ceux du [dépôt de rmf demos](https://github.com/open-rmf/rmf_demos/tree/main). *Ils pourraient à terme faire l'objet d'une refonte pour ne pas faire doublon avec les fichiers de configurations déjà fournis par minipock.*
 :::

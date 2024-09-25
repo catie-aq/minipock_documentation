@@ -1,11 +1,11 @@
 ---
 title: Système embarqué
-sidebar_position: 13
 ---
 
 ## Aperçu
 
 Le système embarqué MiniPock est composé de deux parties :
+
 - La stack applicative qui gère la navigation et communique avec la stack de controle moteur. Elle intègre micro-ROS pour la communication avec les nœuds ROS2 et est basée sur Zephyr OS.
 - La stack de controle moteur permet déplacer le robot. Elle intègre le RBDC (Robot Base Driver Control) qui permet de demander un déplacement en x, y, theta.
 
@@ -16,6 +16,7 @@ Le système embarqué MiniPock est composé de deux parties :
 ## Stack applicative
 
 La stack applicative est basée sur les cartes 6TRON suivantes :
+
 - [Zest_Core_STM32H753ZI](https://6tron.io/zest_core/zest_core_stm32h753zi_2_0_0)
 - [Zest_Test_Prototyping](https://6tron.io/zest/zest_test_prototyping_1_0_0)
 - [Zest_Radio_WiFi](https://6tron.io/zest/zest_radio_wifi_1_0_0)
@@ -40,6 +41,7 @@ Référence : LD19
 ## Stack moteur
 
 Cartes 6TRON :
+
 - [Zest_Carrier_Extension](https://6tron.io/zest/zest_carrier_extension_1_0_0)
 - [Zest_Core_STM32G474VET](https://6tron.io/zest/zest_core_stm32g474vet_1_0_0)
 - [Zest_Actuator_HalfBridges](https://6tron.io/zest/zest_actuator_halfbridges_1_0_0)
@@ -67,12 +69,13 @@ flowchart LR
 
 ## Communication Stack applicative - Stack moteur
 
-La stack applicative communique avec la stack moteur via une interface UART. 
+La stack applicative communique avec la stack moteur via une interface UART.
 
 ```mermaid
 flowchart LR
   app_µROS --UART Protobuf--> control_moteur
 ```
+
 | RBDC | 6TRON   |
 | ---- | ------- |
 | TX   | UART_RX |

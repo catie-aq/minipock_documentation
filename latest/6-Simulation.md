@@ -1,6 +1,5 @@
 ---
 title: Simulation
-sidebar_position: 7
 ---
 
 Pour utiliser MiniPock dans un environnement simulé il est nécessaire d’avoir installé [Gz Sim Harmonic](https://gazebosim.org/docs/harmonic/install).

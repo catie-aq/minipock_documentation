@@ -1,6 +1,5 @@
 ---
 title: Vue d’ensemble
-sidebar_position: 1
 ---
 
 ![banner](../img/minipock_banner_dark_theme.svg#gh-dark-mode-only)
