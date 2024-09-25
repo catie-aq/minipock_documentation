@@ -11,7 +11,43 @@ Le système embarqué MiniPock est composé de deux parties :
 
 ## Architecture
 
-![image1](../img/minipock_architecture_2.1.0.svg)
+![Architecture](../img/minipock_architecture_2.1.0.svg)
+
+## Stack applicative
+
+La stack applicative est basée sur les cartes 6TRON suivantes :
+- [Zest_Core_STM32H753ZI](https://6tron.io/zest_core/zest_core_stm32h753zi_2_0_0)
+- [Zest_Test_Prototyping](https://6tron.io/zest/zest_test_prototyping_1_0_0)
+- [Zest_Radio_WiFi](https://6tron.io/zest/zest_radio_wifi_1_0_0)
+
+### Pinout
+
+![Pinout](../img/stack_applicative_pinout_2.1.0.svg)
+
+### LiDAR
+
+#### Caractéristiques
+
+Référence : LD19
+
+#### Connection
+
+| LiDAR | 6TRON   |
+| ----- | ------- |
+| TX    | DIO12   |
+| PWM   | GND     |
+
+## Stack moteur
+
+Cartes 6TRON :
+- [Zest_Carrier_Extension](https://6tron.io/zest/zest_carrier_extension_1_0_0)
+- [Zest_Core_STM32G474VET](https://6tron.io/zest/zest_core_stm32g474vet_1_0_0)
+- [Zest_Actuator_HalfBridges](https://6tron.io/zest/zest_actuator_halfbridges_1_0_0)
+- [Zest_Test_Prototyping](https://6tron.io/zest/zest_test_prototyping_1_0_0)
+
+![image2](../img/574645014.jpg)
+
+![image3](../img/553523925.png)
 
 ## Interface
 
@@ -29,34 +65,20 @@ flowchart LR
 
 ```
 
-## Communication µROS - ROS2
+## Communication Stack applicative - Stack moteur
+
+La stack applicative communique avec la stack moteur via une interface UART. 
 
 ```mermaid
 flowchart LR
-subgraph Nav2
-BTNavigationServer <--> ControllerServer
-BTNavigationServer <--> PlannerServer
-ControllerServer --> PlannerServer
-
-end
-ControllerServer --> VelocitySmoother
-VelocitySmoother --> CollisionMonitor
-CollisionMonitor --> RobotBase
-RobotBase --/cmd_vel Twist--> Zephyr_µROS
-Zephyr_µROS --/odom Odometry--> ControllerServer
-RPi --/scan LaserScan--> PlannerServer
-RPi --/tf TfMsg-->PlannerServer
+  app_µROS --UART Protobuf--> control_moteur
 ```
+| RBDC | 6TRON   |
+| ---- | ------- |
+| TX   | UART_RX |
+| RX   | UART_TX |
 
-### Liste des topics
-
-| Topic        | Type        |
-| ------------ | ----------- |
-| /namespace/cmd_vel  | Twist       |
-| /namespace/odom_raw | PoseStamped |
-| /namespace/scan_raw | LaserScan   |
-
-### Communication micro-ROS ↔RBDC | Protocol Buffer
+Le protocol de communication est basé sur des messages protocol buffer.
 
 ```protobuf
 syntax = "proto3";
