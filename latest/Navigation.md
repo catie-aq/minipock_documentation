@@ -11,58 +11,22 @@ La navigation permet à un robot de se déplacer de la position actuelle à la p
 
 ## Lancement de la navigation
 
-Assurez vous d’être sur le même `ROS_DOMAIN_ID` que le MiniPock (par défaut `10`)
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="real" label="Réel" default>
-
 ```shell
 ros2 launch minipock_navigation2 navigation2.launch.py
 ```
 
-</TabItem>
+:::info
 
-<TabItem value="simulation" label="Simulation">
+Les informations sur le nombre de robots, leurs types, le lancement du bringup sont contenus dans le fichier de configuration `minipock/minipocks.yaml`
 
-```shell
-ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_time:=true
-```
-
-</TabItem>
-
-<TabItem value="simulation_multiple" label="Simulation Multi-robot">
-
-Il est possible de **lancer navigation et localisation en forçant le démarrage** grâce à:
-```bash
-ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true nb_robots:=nb_robots robot_name:=robot_name
-```
-Les paramètres optionnels:
-
-- **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
-- **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
-- **start_rviz** (bool): Démarrage automatique de rviz. Par défaut ***true***.
-- **use_sim_time** (bool): Pour utiliser le temps de la simulation (**recommandé**). Par défaut ***false*** .
-- **bringup** (bool): Démarrage du bringup de minipock. Par défaut ***true***.
-- **autostart** (bool): Démarrage automatique des éléments de navigation. Par défaut ***false***.
-- **use_composition** (bool): Les nodes sont lancés dans des containers afin d'optimiser la mémoire et les ressources CPU utilisées. Par défaut ***true***.
-- **use_respawn** (bool): Relance les nodes qui plantent. À utiliser si la composition est désactivée. Par défaut: ***false***.
-</TabItem>
-
-</Tabs>
+:::
 
 La `map` utilisée est le fichier `map.yaml` dans `minipock_navigation2/map/map.yaml`
 
-Lorsque Rviz sera ouvert cliquez sur “Startup” dans l’onglet de navigation 2 pour lancer la stack de navigation
-
 ## Estimer la position initiale
 
-L'estimation initiale de la pose doit être effectuée avant de lancer la navigation, car ce processus initialise les paramètres AMCL qui sont essentiels à la navigation. MiniPock doit être correctement localisé sur la carte avec les données du capteur LDS qui se superposent parfaitement à la carte affichée.
-
 - Cliquez sur le bouton 2D Pose Estimate dans le menu RViz2.
-- Cliquez sur la carte où se trouve le robot et faites glisser la grande flèche verte vers la direction à laquelle le robot fait face.
+- Cliquez sur la carte où se trouve le robot et faites glisser la flèche verte vers la direction à laquelle le robot fait face.
 
 ## Donner un ordre de navigation
 
@@ -76,66 +40,4 @@ L'estimation initiale de la pose doit être effectuée avant de lancer la naviga
 
 ## Paramétrage
 
-Les paramètres de navigation sont paramétrables dans le fichier [`minipock.yaml`](https://github.com/catie-aq/minipock_navigation/blob/main/minipock_navigation2/param/minipock.yaml) en suivant le [Guide de paramétrage](https://navigation.ros.org/tuning/index.html).
-
-___
-
-Ce package fournit l'implémentation de la stack de navigation 2 sur le robot MiniPock.
-
-## Installation
-
-Pour installer ce package, assurez-vous que votre workspace ROS est correctement configuré.
-
-```bash
-cd <your_ros2_workspace>
-colcon build --packages-select minipock_navigation2
-```
-
-## Utilisation en simulation
-
-Pour utiliser ce package il est nécessaire de lancer la simulation gazebo du robot MiniPock installée via le package [minipock_gz](https://github.com/catie-aq/minipock_gz) en utilisant le launch file suivant:
-
-<Tabs>
-<TabItem value="simulation" label="Simulation">
-
-```bash
-ros2 launch minipock_gz minipock.launch.py
-```
-
-puis de lancer le launch file de navigation:
-
-```shell
-ros2 launch minipock_navigation2 navigation2.launch.py bringup:=false use_sim_time:=true
-```
-
-</TabItem>
-
-<TabItem value="simulation_multiple" label="Simulation Multi-robot">
-
-```shell
-ros2 launch minipock_gz spawn_multiple.launch.py use_sim_time:=true opt_param_1:=my_param
-```
-
-Puis il est possible de **lancer navigation et localisation en forçant le démarrage** grâce à:
-
-```bash
-ros2 launch minipock_navigation2 navigation2_multiple.launch.py bringup:=false use_sim_time:=true autostart:=true nb_robots:=nb_robots robot_name:=robot_name
-```
-Les paramètres optionnels:
-
-- **nb_robots** (int): Nombre de robots souhaités. Par défaut ***1***.
-- **robot_name** (string): Nom commun à tous les robots, un suffixe sera ajouté incrémentalement. *(exemple: minipock0, minipock1, minipock2, etc.)*. Par défaut ***minipock***.
-- **start_rviz** (bool): Démarrage automatique de rviz. Par défaut ***true***.
-- **use_sim_time** (bool): Pour utiliser le temps de la simulation (**recommandé**). Par défaut ***false*** .
-- **bringup** (bool): Démarrage du bringup de minipock. Par défaut ***true***.
-- **autostart** (bool): Démarrage automatique des éléments de navigation. Par défaut ***false***.
-- **use_composition** (bool): Les nodes sont lancés dans des containers afin d'optimiser la mémoire et les ressources CPU utilisées. Par défaut ***true***.
-- **use_respawn** (bool): Relance les nodes qui plantent. À utiliser si la composition est désactivée. Par défaut: ***false***.
-</TabItem>
-
-</Tabs>
-
-## Configuration
-
-La configuration de la stack de navigation se fait via le
-fichier [minipock.yaml](https://github.com/catie-aq/minipock_navigation/blob/main/minipock_navigation2/param/minipock.yaml)
+Les paramètres de navigation sont paramétrables dans le fichier [`minipock.yaml`](https://github.com/catie-aq/minipock_navigation/blob/main/minipock_navigation2/param/minipock.yaml).
