@@ -30,7 +30,11 @@ La documentation de l'API est divisée en deux parties :
 - L'API créée par la plateforme via Micro-ROS
 - L'API créée par le Bringup sur le PC
 
+:::info
+
 Le namespace est propre à chaque plateforme MiniPock, par défaut `minipock_0`.
+
+:::
 
 ### API MiniPock
 
