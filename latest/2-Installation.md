@@ -31,10 +31,10 @@ docker compose run minipock-simulation # pour la simulation
 Exécuter les commandes suivantes pour compiler le workspace ROS2
 
 ```shell
-cd /workspaces/minipock
+cd /workspaces/
 source /opt/ros/jazzy/setup.bash
 source /workspaces/minipock/install/setup.bash
-colcon build --merge-install
+colcon build --merge-install --symlink-install
 ```
 
 </TabItem>
