@@ -96,6 +96,13 @@ cd minipock
 west update
 ```
 
+- Configurer les réseau Wi-Fi
+
+```
+CONFIG_MICROROS_WIFI_SSID="ssid"
+CONFIG_MICROROS_WIFI_PASSWORD="password"
+```
+
 - Compiler l’application
 
 ```bash
