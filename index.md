@@ -18,6 +18,17 @@ Le projet MiniPock est constitué de trois blocs principaux chacun versionnés s
 
 La version du projet MiniPock suit son propre versionnage. Pour chaque version de MiniPock, les versions des trois blocs principaux sont indiquées.
 
+### 2.2.0
+
+| Mécanique et électronique | Logiciel embarqué | Packages ROS |
+| -------------------------- | ----------------- | ------------ |
+| [2.0.0](https://www.dropbox.com/home/SONU/Projets/RD25%20-%20Capteurs%20et%20Sys.%20TR%20pour%20la%20Robotique/MiniPOCK/plateforme%206tron%20V2) | [2.2.0](https://github.com/catie-aq/minipock_zephyr-demo/releases/tag/v2.1.0) | [2.2.0](https://github.com/catie-aq/minipock/releases/tag/2.1.0) |
+
+- Ajout de la mise à jour du firmware via micro-ROS
+- Reconnexion automatique à l'agent micro-ROS
+- Stockage des paramètres (SSID, mot de passe, IP, namespace) dans la mémoire flash
+- Ajout de commande shell pour la mise à jour et la configuration des paramètres
+
 ### 2.1.0
 
 | Mécanique et électronique | Logiciel embarqué | Packages ROS |
