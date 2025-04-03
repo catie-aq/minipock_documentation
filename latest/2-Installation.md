@@ -17,11 +17,11 @@ import TabItem from '@theme/TabItem';
 <TabItem value="docker" label="Docker 🐳" default>
 
 ```shell
-git clone -b 2.1.0 git@github.com:catie-aq/minipock.git
+git clone -b 2.2.0 git@github.com:catie-aq/minipock.git
 cd minipock
 ```
 
-Exécuter la commande suivante pour démarrer le container docker depuis le dossier `minipock`
+Exécuter la commande suivante pour démarrer le container docker depuis le dossier `minipock`. Vous pouvez aussi utiliser `devcontainer` de VSCode.
 
 ```shell
 docker compose run minipock-real # pour le robot réel
@@ -51,7 +51,7 @@ Créer un workspace ROS2 et cloner les dépôts MiniPock et micro-ROS
 ```shell
 mkdir -p ~/colcon_ws/src
 cd ~/colcon_ws/src
-git clone -b 2.1.0 git@github.com:catie-aq/minipock.git
+git clone -b 2.2.0 git@github.com:catie-aq/minipock.git
 git clone -b jazzy https://github.com/micro-ROS/micro_ros_setup.git
 ```
 
@@ -91,14 +91,14 @@ Module officiel µROS : [https://github.com/micro-ROS/micro_ros_zephyr_module.gi
 - Initialiser le workspace Zephyr
 
 ```bash
-west init -m https://github.com/catie-aq/zephyr_minipock --mr v2.1.0 minipock
+west init -m https://github.com/catie-aq/zephyr_minipock --mr v2.2.0 minipock
 cd minipock
 west update
 ```
 
-- Configurer les réseau Wi-Fi
+- Configurer les réseaux Wi-Fi
 
-```
+```bash
 CONFIG_MICROROS_WIFI_SSID="ssid"
 CONFIG_MICROROS_WIFI_PASSWORD="password"
 ```
