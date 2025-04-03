@@ -50,6 +50,21 @@ Il est automatiquement lancé par les différentes stack si le paramètre `bring
 ros2 launch minipock_bringup bringup.launch.py
 ```
 
+## Configuration des paramètres du robot
+
+Les paramètres du robot peuvent être configurés avec la console (En connectant un câble micro-USB).
+
+```
+uart:~$ settings 
+settings - Settings commands
+Subcommands:
+  ssid       : Set SSID
+  password   : Set password
+  channel    : Set channel
+  namespace  : Set namespace
+  agent_ip   : Set Agent IP address
+```
+
 ## Téléopération
 
 Lancez ensuite le noeud de téléopération

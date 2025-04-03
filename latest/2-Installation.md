@@ -103,6 +103,14 @@ CONFIG_MICROROS_WIFI_SSID="ssid"
 CONFIG_MICROROS_WIFI_PASSWORD="password"
 ```
 
+:::info
+
+Le SSID et le mot de passe peuvent être configurés avec une commande shell ([documentation](3-Démarrage-rapide.md#configuration-des-paramètres-du-robot)).
+
+:::
+
+```bash
+
 - Compiler l’application
 
 ```bash
