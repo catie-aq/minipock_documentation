@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# latest
+# 2.2.0
 
 import DocCardList from '@theme/DocCardList';
 
