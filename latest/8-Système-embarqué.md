@@ -17,7 +17,7 @@ Le système embarqué MiniPock est composé de deux parties :
 La stack applicative est basée sur les cartes 6TRON suivantes :
 - [Zest_Core_STM32H753ZI](https://6tron.io/zest_core/zest_core_stm32h753zi_2_0_0)
 - [Zest_Test_Prototyping](https://6tron.io/zest/zest_test_prototyping_1_0_0)
-- [Zest_Radio_WiFi](https://6tron.io/zest/zest_radio_wifi_1_0_0)
+- [Zest_Radio_WiFi](https://6tron.io/zest/zest_radio_wifi_2_0_0)
 
 ### Pinout
 
